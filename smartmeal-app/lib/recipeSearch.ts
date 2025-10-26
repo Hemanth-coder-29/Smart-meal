@@ -32,9 +32,12 @@ export function calculateMatchPercentage(
 
   cleanedRecipeIngredients.forEach((recipeIng, index) => {
     const isAvailable = cleanedUserIngredients.some((userIng) => {
-      // Check if ingredient names match (exact or partial)
-      return recipeIng.includes(userIng) || userIng.includes(recipeIng);
-    });
+  // Exact match or substring (broader ingredient contains narrower)
+  return recipeIng === userIng || 
+         recipeIng.includes(userIng) || 
+         userIng.includes(recipeIng);
+});
+
 
     if (isAvailable) {
       available.push(recipeIngredients[index].name);
@@ -55,11 +58,12 @@ export function calculateMatchPercentage(
  * Apply dietary filters to recipe
  */
 function matchesDietaryFilters(recipe: DetailedRecipe, filters: DietaryFilter[]): boolean {
-  if (filters.length === 0) return true;
-
-  // Recipe must have all selected dietary tags
-  return filters.every((filter) => recipe.dietaryTags.includes(filter));
+  if (!filters || filters.length === 0) return true;
+  if (!recipe.dietaryTags || !Array.isArray(recipe.dietaryTags)) return false;
+  const recipeTags = recipe.dietaryTags.map((tag: string) => tag.toLowerCase().trim());
+  return filters.every((filter) => recipeTags.includes(filter.toLowerCase().trim()));
 }
+
 
 /**
  * Apply cuisine filter
@@ -119,7 +123,7 @@ export async function searchRecipes(
     cuisine = "all",
     dietaryFilters = [],
     sortBy = "bestMatch",
-    minMatchPercentage = 30,
+    minMatchPercentage = 15,
   } = params;
 
   // Step 1: Calculate match percentages

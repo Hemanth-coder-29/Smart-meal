@@ -6,7 +6,11 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "standardize": "node scripts/standardizeRecipes.js",
+    "standardize:dry-run": "node scripts/standardizeRecipes.js --dry-run",
+    "standardize:force": "node scripts/standardizeRecipes.js --force",
+    "test:standardization": "node scripts/testStandardization.js"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

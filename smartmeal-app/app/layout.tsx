@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SkipLink } from "@/components/common/SkipLink";
+import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,8 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <SkipLink href="#main-content">Skip to main content</SkipLink>
-        {children}
+        <ErrorBoundary level="root" context="RootLayout">
+          <SkipLink href="#main-content">Skip to main content</SkipLink>
+          {children}
+        </ErrorBoundary>
       </body>
     </html>
   );
