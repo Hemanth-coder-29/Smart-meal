@@ -1,0 +1,4933 @@
+[
+  {
+    "id": "recipe_0001",
+    "title": "Sample International Snack Recipe 1",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international snack dish that's perfect for any occasion.",
+    "prepTime": 6,
+    "cookTime": 60,
+    "totalTime": 66,
+    "servings": 4,
+    "difficulty": "Easy",
+    "mealType": "Snack",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 777,
+      "protein": 15,
+      "carbs": 85,
+      "fats": 13,
+      "fiber": 4,
+      "sodium": 1268,
+      "sugar": 2
+    },
+    "dietaryTags": [
+      "gluten-free"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0002",
+    "title": "Sample Mexican Dinner Recipe 2",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious mexican dinner dish that's perfect for any occasion.",
+    "prepTime": 9,
+    "cookTime": 44,
+    "totalTime": 53,
+    "servings": 4,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "mexican",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 587,
+      "protein": 21,
+      "carbs": 85,
+      "fats": 31,
+      "fiber": 8,
+      "sodium": 701,
+      "sugar": 23
+    },
+    "dietaryTags": [
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0003",
+    "title": "Sample Mexican Dinner Recipe 3",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious mexican dinner dish that's perfect for any occasion.",
+    "prepTime": 25,
+    "cookTime": 57,
+    "totalTime": 82,
+    "servings": 2,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "mexican",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 696,
+      "protein": 10,
+      "carbs": 75,
+      "fats": 15,
+      "fiber": 12,
+      "sodium": 910,
+      "sugar": 13
+    },
+    "dietaryTags": [
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0004",
+    "title": "Sample Chinese Breakfast Recipe 4",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese breakfast dish that's perfect for any occasion.",
+    "prepTime": 21,
+    "cookTime": 54,
+    "totalTime": 75,
+    "servings": 4,
+    "difficulty": "Hard",
+    "mealType": "Breakfast",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 738,
+      "protein": 39,
+      "carbs": 21,
+      "fats": 10,
+      "fiber": 7,
+      "sodium": 280,
+      "sugar": 5
+    },
+    "dietaryTags": [
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0005",
+    "title": "Sample International Lunch Recipe 5",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international lunch dish that's perfect for any occasion.",
+    "prepTime": 25,
+    "cookTime": 24,
+    "totalTime": 49,
+    "servings": 4,
+    "difficulty": "Easy",
+    "mealType": "Lunch",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 379,
+      "protein": 38,
+      "carbs": 78,
+      "fats": 24,
+      "fiber": 9,
+      "sodium": 780,
+      "sugar": 11
+    },
+    "dietaryTags": [
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0006",
+    "title": "Sample Chinese Snack Recipe 6",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese snack dish that's perfect for any occasion.",
+    "prepTime": 20,
+    "cookTime": 26,
+    "totalTime": 46,
+    "servings": 5,
+    "difficulty": "Hard",
+    "mealType": "Snack",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 227,
+      "protein": 36,
+      "carbs": 33,
+      "fats": 13,
+      "fiber": 9,
+      "sodium": 1341,
+      "sugar": 19
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0007",
+    "title": "Sample Chinese Breakfast Recipe 7",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese breakfast dish that's perfect for any occasion.",
+    "prepTime": 15,
+    "cookTime": 59,
+    "totalTime": 74,
+    "servings": 3,
+    "difficulty": "Medium",
+    "mealType": "Breakfast",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 325,
+      "protein": 44,
+      "carbs": 31,
+      "fats": 13,
+      "fiber": 10,
+      "sodium": 290,
+      "sugar": 12
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0008",
+    "title": "Sample Italian Breakfast Recipe 8",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian breakfast dish that's perfect for any occasion.",
+    "prepTime": 11,
+    "cookTime": 40,
+    "totalTime": 51,
+    "servings": 6,
+    "difficulty": "Medium",
+    "mealType": "Breakfast",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 331,
+      "protein": 15,
+      "carbs": 82,
+      "fats": 12,
+      "fiber": 7,
+      "sodium": 375,
+      "sugar": 13
+    },
+    "dietaryTags": [
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0009",
+    "title": "Sample Chinese Dinner Recipe 9",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese dinner dish that's perfect for any occasion.",
+    "prepTime": 29,
+    "cookTime": 13,
+    "totalTime": 42,
+    "servings": 3,
+    "difficulty": "Easy",
+    "mealType": "Dinner",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 758,
+      "protein": 16,
+      "carbs": 21,
+      "fats": 26,
+      "fiber": 3,
+      "sodium": 1014,
+      "sugar": 8
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0010",
+    "title": "Sample International Snack Recipe 10",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international snack dish that's perfect for any occasion.",
+    "prepTime": 29,
+    "cookTime": 37,
+    "totalTime": 66,
+    "servings": 5,
+    "difficulty": "Hard",
+    "mealType": "Snack",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 549,
+      "protein": 34,
+      "carbs": 58,
+      "fats": 6,
+      "fiber": 14,
+      "sodium": 864,
+      "sugar": 3
+    },
+    "dietaryTags": [
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0011",
+    "title": "Sample Mexican Dinner Recipe 11",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious mexican dinner dish that's perfect for any occasion.",
+    "prepTime": 5,
+    "cookTime": 31,
+    "totalTime": 36,
+    "servings": 4,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "mexican",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 576,
+      "protein": 32,
+      "carbs": 89,
+      "fats": 24,
+      "fiber": 4,
+      "sodium": 993,
+      "sugar": 22
+    },
+    "dietaryTags": [
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0012",
+    "title": "Sample Italian Dinner Recipe 12",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian dinner dish that's perfect for any occasion.",
+    "prepTime": 22,
+    "cookTime": 11,
+    "totalTime": 33,
+    "servings": 4,
+    "difficulty": "Easy",
+    "mealType": "Dinner",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 667,
+      "protein": 11,
+      "carbs": 63,
+      "fats": 28,
+      "fiber": 14,
+      "sodium": 411,
+      "sugar": 11
+    },
+    "dietaryTags": [
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0013",
+    "title": "Sample Italian Dinner Recipe 13",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian dinner dish that's perfect for any occasion.",
+    "prepTime": 26,
+    "cookTime": 69,
+    "totalTime": 95,
+    "servings": 6,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 708,
+      "protein": 34,
+      "carbs": 96,
+      "fats": 22,
+      "fiber": 6,
+      "sodium": 489,
+      "sugar": 11
+    },
+    "dietaryTags": [
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0014",
+    "title": "Sample Indian Dinner Recipe 14",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian dinner dish that's perfect for any occasion.",
+    "prepTime": 28,
+    "cookTime": 27,
+    "totalTime": 55,
+    "servings": 4,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 318,
+      "protein": 45,
+      "carbs": 71,
+      "fats": 5,
+      "fiber": 9,
+      "sodium": 908,
+      "sugar": 19
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0015",
+    "title": "Sample Indian Breakfast Recipe 15",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian breakfast dish that's perfect for any occasion.",
+    "prepTime": 27,
+    "cookTime": 10,
+    "totalTime": 37,
+    "servings": 5,
+    "difficulty": "Easy",
+    "mealType": "Breakfast",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 396,
+      "protein": 23,
+      "carbs": 95,
+      "fats": 37,
+      "fiber": 3,
+      "sodium": 1018,
+      "sugar": 24
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0016",
+    "title": "Sample Thai Breakfast Recipe 16",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious thai breakfast dish that's perfect for any occasion.",
+    "prepTime": 5,
+    "cookTime": 28,
+    "totalTime": 33,
+    "servings": 6,
+    "difficulty": "Hard",
+    "mealType": "Breakfast",
+    "cuisine": "thai",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 419,
+      "protein": 23,
+      "carbs": 47,
+      "fats": 32,
+      "fiber": 14,
+      "sodium": 851,
+      "sugar": 4
+    },
+    "dietaryTags": [
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0017",
+    "title": "Sample Italian Snack Recipe 17",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian snack dish that's perfect for any occasion.",
+    "prepTime": 17,
+    "cookTime": 10,
+    "totalTime": 27,
+    "servings": 5,
+    "difficulty": "Medium",
+    "mealType": "Snack",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 586,
+      "protein": 34,
+      "carbs": 93,
+      "fats": 30,
+      "fiber": 3,
+      "sodium": 486,
+      "sugar": 2
+    },
+    "dietaryTags": [
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0018",
+    "title": "Sample International Dinner Recipe 18",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international dinner dish that's perfect for any occasion.",
+    "prepTime": 30,
+    "cookTime": 73,
+    "totalTime": 103,
+    "servings": 2,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 354,
+      "protein": 18,
+      "carbs": 30,
+      "fats": 24,
+      "fiber": 5,
+      "sodium": 957,
+      "sugar": 18
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0019",
+    "title": "Sample Chinese Dinner Recipe 19",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese dinner dish that's perfect for any occasion.",
+    "prepTime": 22,
+    "cookTime": 68,
+    "totalTime": 90,
+    "servings": 3,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 317,
+      "protein": 47,
+      "carbs": 95,
+      "fats": 35,
+      "fiber": 4,
+      "sodium": 1109,
+      "sugar": 6
+    },
+    "dietaryTags": [
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0020",
+    "title": "Sample International Lunch Recipe 20",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international lunch dish that's perfect for any occasion.",
+    "prepTime": 9,
+    "cookTime": 11,
+    "totalTime": 20,
+    "servings": 3,
+    "difficulty": "Medium",
+    "mealType": "Lunch",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 446,
+      "protein": 26,
+      "carbs": 32,
+      "fats": 6,
+      "fiber": 9,
+      "sodium": 1347,
+      "sugar": 12
+    },
+    "dietaryTags": [
+      "gluten-free"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0021",
+    "title": "Sample Indian Snack Recipe 21",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian snack dish that's perfect for any occasion.",
+    "prepTime": 20,
+    "cookTime": 89,
+    "totalTime": 109,
+    "servings": 6,
+    "difficulty": "Hard",
+    "mealType": "Snack",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 609,
+      "protein": 30,
+      "carbs": 39,
+      "fats": 8,
+      "fiber": 8,
+      "sodium": 412,
+      "sugar": 10
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0022",
+    "title": "Sample Italian Breakfast Recipe 22",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian breakfast dish that's perfect for any occasion.",
+    "prepTime": 9,
+    "cookTime": 37,
+    "totalTime": 46,
+    "servings": 6,
+    "difficulty": "Easy",
+    "mealType": "Breakfast",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 710,
+      "protein": 30,
+      "carbs": 91,
+      "fats": 7,
+      "fiber": 6,
+      "sodium": 1250,
+      "sugar": 12
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0023",
+    "title": "Sample Chinese Dinner Recipe 23",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese dinner dish that's perfect for any occasion.",
+    "prepTime": 21,
+    "cookTime": 90,
+    "totalTime": 111,
+    "servings": 2,
+    "difficulty": "Easy",
+    "mealType": "Dinner",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 264,
+      "protein": 29,
+      "carbs": 92,
+      "fats": 27,
+      "fiber": 4,
+      "sodium": 806,
+      "sugar": 14
+    },
+    "dietaryTags": [
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0024",
+    "title": "Sample Italian Lunch Recipe 24",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian lunch dish that's perfect for any occasion.",
+    "prepTime": 12,
+    "cookTime": 34,
+    "totalTime": 46,
+    "servings": 5,
+    "difficulty": "Easy",
+    "mealType": "Lunch",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 636,
+      "protein": 15,
+      "carbs": 51,
+      "fats": 38,
+      "fiber": 7,
+      "sodium": 1326,
+      "sugar": 7
+    },
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0025",
+    "title": "Sample Indian Snack Recipe 25",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian snack dish that's perfect for any occasion.",
+    "prepTime": 11,
+    "cookTime": 69,
+    "totalTime": 80,
+    "servings": 2,
+    "difficulty": "Easy",
+    "mealType": "Snack",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 379,
+      "protein": 19,
+      "carbs": 79,
+      "fats": 8,
+      "fiber": 10,
+      "sodium": 772,
+      "sugar": 19
+    },
+    "dietaryTags": [
+      "vegetarian",
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0026",
+    "title": "Sample International Dinner Recipe 26",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international dinner dish that's perfect for any occasion.",
+    "prepTime": 8,
+    "cookTime": 39,
+    "totalTime": 47,
+    "servings": 6,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 586,
+      "protein": 48,
+      "carbs": 68,
+      "fats": 14,
+      "fiber": 11,
+      "sodium": 270,
+      "sugar": 9
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0027",
+    "title": "Sample Indian Lunch Recipe 27",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian lunch dish that's perfect for any occasion.",
+    "prepTime": 8,
+    "cookTime": 65,
+    "totalTime": 73,
+    "servings": 6,
+    "difficulty": "Medium",
+    "mealType": "Lunch",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 657,
+      "protein": 22,
+      "carbs": 72,
+      "fats": 35,
+      "fiber": 11,
+      "sodium": 1203,
+      "sugar": 23
+    },
+    "dietaryTags": [
+      "gluten-free",
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0028",
+    "title": "Sample International Dinner Recipe 28",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international dinner dish that's perfect for any occasion.",
+    "prepTime": 24,
+    "cookTime": 32,
+    "totalTime": 56,
+    "servings": 3,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 418,
+      "protein": 45,
+      "carbs": 30,
+      "fats": 16,
+      "fiber": 2,
+      "sodium": 1062,
+      "sugar": 14
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0029",
+    "title": "Sample Chinese Dinner Recipe 29",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese dinner dish that's perfect for any occasion.",
+    "prepTime": 18,
+    "cookTime": 62,
+    "totalTime": 80,
+    "servings": 5,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 467,
+      "protein": 20,
+      "carbs": 60,
+      "fats": 39,
+      "fiber": 6,
+      "sodium": 907,
+      "sugar": 6
+    },
+    "dietaryTags": [
+      "vegan",
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0030",
+    "title": "Sample Mexican Lunch Recipe 30",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious mexican lunch dish that's perfect for any occasion.",
+    "prepTime": 29,
+    "cookTime": 43,
+    "totalTime": 72,
+    "servings": 5,
+    "difficulty": "Hard",
+    "mealType": "Lunch",
+    "cuisine": "mexican",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 489,
+      "protein": 23,
+      "carbs": 40,
+      "fats": 24,
+      "fiber": 8,
+      "sodium": 1420,
+      "sugar": 16
+    },
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0031",
+    "title": "Sample International Dinner Recipe 31",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international dinner dish that's perfect for any occasion.",
+    "prepTime": 24,
+    "cookTime": 63,
+    "totalTime": 87,
+    "servings": 3,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 416,
+      "protein": 39,
+      "carbs": 39,
+      "fats": 34,
+      "fiber": 2,
+      "sodium": 700,
+      "sugar": 10
+    },
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0032",
+    "title": "Sample Chinese Snack Recipe 32",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese snack dish that's perfect for any occasion.",
+    "prepTime": 23,
+    "cookTime": 22,
+    "totalTime": 45,
+    "servings": 4,
+    "difficulty": "Hard",
+    "mealType": "Snack",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 740,
+      "protein": 39,
+      "carbs": 44,
+      "fats": 27,
+      "fiber": 4,
+      "sodium": 656,
+      "sugar": 21
+    },
+    "dietaryTags": [
+      "keto",
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0033",
+    "title": "Sample Thai Breakfast Recipe 33",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious thai breakfast dish that's perfect for any occasion.",
+    "prepTime": 21,
+    "cookTime": 37,
+    "totalTime": 58,
+    "servings": 6,
+    "difficulty": "Easy",
+    "mealType": "Breakfast",
+    "cuisine": "thai",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 200,
+      "protein": 41,
+      "carbs": 54,
+      "fats": 36,
+      "fiber": 3,
+      "sodium": 575,
+      "sugar": 14
+    },
+    "dietaryTags": [
+      "vegan",
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0034",
+    "title": "Sample Italian Breakfast Recipe 34",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian breakfast dish that's perfect for any occasion.",
+    "prepTime": 29,
+    "cookTime": 38,
+    "totalTime": 67,
+    "servings": 2,
+    "difficulty": "Hard",
+    "mealType": "Breakfast",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 261,
+      "protein": 14,
+      "carbs": 75,
+      "fats": 14,
+      "fiber": 5,
+      "sodium": 952,
+      "sugar": 7
+    },
+    "dietaryTags": [
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0035",
+    "title": "Sample Indian Lunch Recipe 35",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian lunch dish that's perfect for any occasion.",
+    "prepTime": 30,
+    "cookTime": 18,
+    "totalTime": 48,
+    "servings": 5,
+    "difficulty": "Medium",
+    "mealType": "Lunch",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 222,
+      "protein": 46,
+      "carbs": 63,
+      "fats": 28,
+      "fiber": 4,
+      "sodium": 421,
+      "sugar": 22
+    },
+    "dietaryTags": [
+      "vegetarian",
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0036",
+    "title": "Sample Mexican Dinner Recipe 36",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious mexican dinner dish that's perfect for any occasion.",
+    "prepTime": 12,
+    "cookTime": 83,
+    "totalTime": 95,
+    "servings": 4,
+    "difficulty": "Hard",
+    "mealType": "Dinner",
+    "cuisine": "mexican",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 789,
+      "protein": 45,
+      "carbs": 30,
+      "fats": 8,
+      "fiber": 6,
+      "sodium": 419,
+      "sugar": 24
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0037",
+    "title": "Sample Chinese Breakfast Recipe 37",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese breakfast dish that's perfect for any occasion.",
+    "prepTime": 5,
+    "cookTime": 49,
+    "totalTime": 54,
+    "servings": 4,
+    "difficulty": "Easy",
+    "mealType": "Breakfast",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 396,
+      "protein": 14,
+      "carbs": 75,
+      "fats": 33,
+      "fiber": 4,
+      "sodium": 225,
+      "sugar": 8
+    },
+    "dietaryTags": [
+      "keto",
+      "vegan"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0038",
+    "title": "Sample Mexican Dinner Recipe 38",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious mexican dinner dish that's perfect for any occasion.",
+    "prepTime": 26,
+    "cookTime": 50,
+    "totalTime": 76,
+    "servings": 5,
+    "difficulty": "Easy",
+    "mealType": "Dinner",
+    "cuisine": "mexican",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 351,
+      "protein": 16,
+      "carbs": 65,
+      "fats": 18,
+      "fiber": 5,
+      "sodium": 429,
+      "sugar": 21
+    },
+    "dietaryTags": [
+      "gluten-free"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0039",
+    "title": "Sample Italian Snack Recipe 39",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian snack dish that's perfect for any occasion.",
+    "prepTime": 18,
+    "cookTime": 34,
+    "totalTime": 52,
+    "servings": 3,
+    "difficulty": "Hard",
+    "mealType": "Snack",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 784,
+      "protein": 47,
+      "carbs": 60,
+      "fats": 7,
+      "fiber": 11,
+      "sodium": 839,
+      "sugar": 13
+    },
+    "dietaryTags": [
+      "gluten-free",
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0040",
+    "title": "Sample Italian Dinner Recipe 40",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian dinner dish that's perfect for any occasion.",
+    "prepTime": 5,
+    "cookTime": 82,
+    "totalTime": 87,
+    "servings": 4,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 393,
+      "protein": 18,
+      "carbs": 79,
+      "fats": 24,
+      "fiber": 13,
+      "sodium": 760,
+      "sugar": 24
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0041",
+    "title": "Sample Chinese Snack Recipe 41",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese snack dish that's perfect for any occasion.",
+    "prepTime": 27,
+    "cookTime": 30,
+    "totalTime": 57,
+    "servings": 5,
+    "difficulty": "Easy",
+    "mealType": "Snack",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 463,
+      "protein": 23,
+      "carbs": 51,
+      "fats": 6,
+      "fiber": 4,
+      "sodium": 848,
+      "sugar": 13
+    },
+    "dietaryTags": [
+      "vegan",
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0042",
+    "title": "Sample Indian Breakfast Recipe 42",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian breakfast dish that's perfect for any occasion.",
+    "prepTime": 26,
+    "cookTime": 52,
+    "totalTime": 78,
+    "servings": 3,
+    "difficulty": "Hard",
+    "mealType": "Breakfast",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 619,
+      "protein": 20,
+      "carbs": 48,
+      "fats": 16,
+      "fiber": 8,
+      "sodium": 501,
+      "sugar": 7
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0043",
+    "title": "Sample Italian Breakfast Recipe 43",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious italian breakfast dish that's perfect for any occasion.",
+    "prepTime": 17,
+    "cookTime": 87,
+    "totalTime": 104,
+    "servings": 4,
+    "difficulty": "Easy",
+    "mealType": "Breakfast",
+    "cuisine": "italian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 226,
+      "protein": 38,
+      "carbs": 56,
+      "fats": 34,
+      "fiber": 14,
+      "sodium": 626,
+      "sugar": 18
+    },
+    "dietaryTags": [],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0044",
+    "title": "Sample Indian Dinner Recipe 44",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian dinner dish that's perfect for any occasion.",
+    "prepTime": 15,
+    "cookTime": 55,
+    "totalTime": 70,
+    "servings": 5,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 564,
+      "protein": 42,
+      "carbs": 81,
+      "fats": 29,
+      "fiber": 5,
+      "sodium": 1031,
+      "sugar": 5
+    },
+    "dietaryTags": [
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0045",
+    "title": "Sample Chinese Lunch Recipe 45",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese lunch dish that's perfect for any occasion.",
+    "prepTime": 29,
+    "cookTime": 84,
+    "totalTime": 113,
+    "servings": 6,
+    "difficulty": "Medium",
+    "mealType": "Lunch",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 771,
+      "protein": 40,
+      "carbs": 97,
+      "fats": 10,
+      "fiber": 14,
+      "sodium": 1191,
+      "sugar": 10
+    },
+    "dietaryTags": [
+      "gluten-free"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0046",
+    "title": "Sample Thai Breakfast Recipe 46",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious thai breakfast dish that's perfect for any occasion.",
+    "prepTime": 6,
+    "cookTime": 24,
+    "totalTime": 30,
+    "servings": 3,
+    "difficulty": "Medium",
+    "mealType": "Breakfast",
+    "cuisine": "thai",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 311,
+      "protein": 48,
+      "carbs": 33,
+      "fats": 29,
+      "fiber": 10,
+      "sodium": 1349,
+      "sugar": 13
+    },
+    "dietaryTags": [
+      "gluten-free",
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0047",
+    "title": "Sample Chinese Lunch Recipe 47",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese lunch dish that's perfect for any occasion.",
+    "prepTime": 28,
+    "cookTime": 85,
+    "totalTime": 113,
+    "servings": 2,
+    "difficulty": "Medium",
+    "mealType": "Lunch",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 278,
+      "protein": 35,
+      "carbs": 62,
+      "fats": 12,
+      "fiber": 14,
+      "sodium": 1359,
+      "sugar": 8
+    },
+    "dietaryTags": [
+      "keto"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0048",
+    "title": "Sample International Breakfast Recipe 48",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious international breakfast dish that's perfect for any occasion.",
+    "prepTime": 18,
+    "cookTime": 79,
+    "totalTime": 97,
+    "servings": 5,
+    "difficulty": "Hard",
+    "mealType": "Breakfast",
+    "cuisine": "international",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 732,
+      "protein": 10,
+      "carbs": 79,
+      "fats": 29,
+      "fiber": 3,
+      "sodium": 653,
+      "sugar": 5
+    },
+    "dietaryTags": [
+      "low-carb"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0049",
+    "title": "Sample Chinese Dinner Recipe 49",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious chinese dinner dish that's perfect for any occasion.",
+    "prepTime": 28,
+    "cookTime": 29,
+    "totalTime": 57,
+    "servings": 6,
+    "difficulty": "Medium",
+    "mealType": "Dinner",
+    "cuisine": "chinese",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 670,
+      "protein": 47,
+      "carbs": 73,
+      "fats": 25,
+      "fiber": 9,
+      "sodium": 700,
+      "sugar": 22
+    },
+    "dietaryTags": [
+      "vegan",
+      "vegetarian"
+    ],
+    "videoId": null
+  },
+  {
+    "id": "recipe_0050",
+    "title": "Sample Indian Lunch Recipe 50",
+    "image": "/images/placeholder-recipe.png",
+    "description": "A delicious indian lunch dish that's perfect for any occasion.",
+    "prepTime": 12,
+    "cookTime": 55,
+    "totalTime": 67,
+    "servings": 5,
+    "difficulty": "Hard",
+    "mealType": "Lunch",
+    "cuisine": "indian",
+    "ingredients": [
+      {
+        "name": "tomatoes",
+        "quantity": 2,
+        "unit": "cups",
+        "substitutions": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "name": "onion",
+        "quantity": 1,
+        "unit": "medium",
+        "substitutions": [
+          "shallots"
+        ]
+      },
+      {
+        "name": "garlic",
+        "quantity": 3,
+        "unit": "cloves",
+        "substitutions": [
+          "garlic powder"
+        ]
+      },
+      {
+        "name": "olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "substitutions": [
+          "vegetable oil"
+        ]
+      },
+      {
+        "name": "salt",
+        "quantity": 1,
+        "unit": "tsp",
+        "substitutions": []
+      },
+      {
+        "name": "pepper",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "substitutions": []
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "text": "Prepare all ingredients by washing and chopping as needed.",
+        "timerDuration": null
+      },
+      {
+        "step": 2,
+        "text": "Heat oil in a large pan over medium heat.",
+        "timerDuration": null
+      },
+      {
+        "step": 3,
+        "text": "Cook the base ingredients for 10 minutes.",
+        "timerDuration": 600
+      },
+      {
+        "step": 4,
+        "text": "Add main ingredients and simmer for 20 minutes.",
+        "timerDuration": 1200
+      },
+      {
+        "step": 5,
+        "text": "Season to taste and serve hot.",
+        "timerDuration": null
+      }
+    ],
+    "nutrition": {
+      "calories": 238,
+      "protein": 38,
+      "carbs": 95,
+      "fats": 7,
+      "fiber": 11,
+      "sodium": 366,
+      "sugar": 15
+    },
+    "dietaryTags": [],
+    "videoId": null
+  }
+]
