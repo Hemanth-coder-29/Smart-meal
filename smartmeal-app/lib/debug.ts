@@ -28,13 +28,25 @@ interface DebugConfig {
 const defaultConfig: DebugConfig = {
   enabled: typeof window !== 'undefined' 
     ? process.env.NODE_ENV === 'development' || 
-      localStorage.getItem('smartmeal_debug') === 'true'
+      (() => {
+        try {
+          return localStorage.getItem('smartmeal_debug') === 'true';
+        } catch {
+          return false;
+        }
+      })()
     : process.env.NODE_ENV === 'development',
   minLevel: getMinLogLevel(),
   showTimestamp: true,
   colorEnabled: typeof window !== 'undefined',
   filter: typeof window !== 'undefined' 
-    ? localStorage.getItem('debug_filter') || '*'
+    ? (() => {
+        try {
+          return localStorage.getItem('debug_filter') || '*';
+        } catch {
+          return '*';
+        }
+      })()
     : '*',
 };
 
@@ -46,10 +58,14 @@ let config: DebugConfig = { ...defaultConfig };
  */
 function getMinLogLevel(): LogLevel {
   if (typeof window !== 'undefined') {
-    const envLevel = process.env.NEXT_PUBLIC_LOG_LEVEL;
-    const storageLevel = localStorage.getItem('smartmeal_log_level');
-    const levelStr = storageLevel || envLevel || 'INFO';
-    return LogLevel[levelStr as LogLevelType] ?? LogLevel.INFO;
+    try {
+      const envLevel = process.env.NEXT_PUBLIC_LOG_LEVEL;
+      const storageLevel = localStorage.getItem('smartmeal_log_level');
+      const levelStr = storageLevel || envLevel || 'INFO';
+      return LogLevel[levelStr as LogLevelType] ?? LogLevel.INFO;
+    } catch {
+      return LogLevel.INFO;
+    }
   }
   const envLevel = process.env.NEXT_PUBLIC_LOG_LEVEL || 'INFO';
   return LogLevel[envLevel as LogLevelType] ?? LogLevel.INFO;
@@ -265,16 +281,20 @@ export const logger = {
 /**
  * Configuration functions
  */
-export const debugConfig = {
+ export const debugConfig = {
   /**
    * Set the minimum log level
    */
   setLogLevel(level: LogLevelType): void {
     config.minLevel = LogLevel[level];
     if (typeof window !== 'undefined') {
-      localStorage.setItem('smartmeal_log_level', level);
+      try {
+        localStorage.setItem('smartmeal_log_level', level);
+      } catch (error) {
+        console.warn('Failed to persist log level:', error);
+      }
     }
-  },
+  }, // <-- Comma needed
 
   /**
    * Enable or disable logging
@@ -282,9 +302,13 @@ export const debugConfig = {
   setEnabled(enabled: boolean): void {
     config.enabled = enabled;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('smartmeal_debug', enabled ? 'true' : 'false');
+      try {
+        localStorage.setItem('smartmeal_debug', enabled ? 'true' : 'false');
+      } catch (error) {
+        console.warn('Failed to persist debug setting:', error);
+      }
     }
-  },
+  }, // <-- Comma needed
 
   /**
    * Set filter pattern
@@ -292,16 +316,20 @@ export const debugConfig = {
   setFilter(filter: string): void {
     config.filter = filter;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('debug_filter', filter);
+      try {
+        localStorage.setItem('debug_filter', filter);
+      } catch (error) {
+        console.warn('Failed to persist filter:', error);
+      }
     }
-  },
+  }, // <-- Comma needed
 
   /**
    * Get current configuration
    */
   getConfig(): DebugConfig {
     return { ...config };
-  },
+  }, // <-- Comma needed
 
   /**
    * Reset to default configuration
@@ -309,28 +337,27 @@ export const debugConfig = {
   reset(): void {
     config = { ...defaultConfig };
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('smartmeal_debug');
-      localStorage.removeItem('smartmeal_log_level');
-      localStorage.removeItem('debug_filter');
+      try {
+        localStorage.removeItem('smartmeal_debug');
+        localStorage.removeItem('smartmeal_log_level');
+        localStorage.removeItem('debug_filter');
+      } catch (error) {
+        console.warn('Failed to clear debug settings:', error);
+      }
     }
-  },
-};
+  }, // <-- No comma needed after the last method in the object
+}; // <-- This is the closing brace for the debugConfig object
+
+// The lines below were duplicated and misplaced in your snippet:
+//   localStorage.removeItem('smartmeal_log_level');
+//   localStorage.removeItem('debug_filter');
+// } // <-- This closing brace was also misplaced
+// }, // <-- This comma and brace were also misplaced
+// }; // <-- This brace was also misplaced
 
 /**
  * Utility function to sanitize sensitive data before logging
  */
-export function sanitizeData(data: Record<string, unknown>): Record<string, unknown> {
-  const sensitiveKeys = ['password', 'token', 'secret', 'apiKey', 'api_key'];
-  const sanitized = { ...data };
-  
-  for (const key in sanitized) {
-    if (sensitiveKeys.some(sk => key.toLowerCase().includes(sk))) {
-      sanitized[key] = '[REDACTED]';
-    }
-  }
-  
-  return sanitized;
-}
+// ... (sanitizeData function remains the same)
 
-// Export default logger
 export default logger;

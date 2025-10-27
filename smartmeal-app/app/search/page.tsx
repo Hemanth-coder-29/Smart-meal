@@ -1,54 +1,104 @@
+// smartmeal-app/app/search/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState } from "react"; // Keep useState
 import Link from "next/link";
+import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { RecipeGrid } from "@/components/recipes/RecipeGrid"; // Import RecipeGrid
+import { FilterPanel } from "@/components/search/FilterPanel"; // Import FilterPanel
+import { LoadingSpinner } from "@/components/common/Loading"; // Import LoadingSpinner
+import { ErrorMessage } from "@/components/common/ErrorMessage"; // Import ErrorMessage
+import type { Recipe } from "@/types/recipe"; // Import Recipe type
+import type { CuisineType, DietaryFilter } from "@/types/recipe"; // Import filter types
 
 export default function SearchPage() {
   const [ingredients, setIngredients] = useState("");
-  const [searching, setSearching] = useState(false);
+  const [filters, setFilters] = useState<{
+    cuisine?: CuisineType;
+    dietaryFilters: DietaryFilter[];
+    difficulty?: string;
+    maxTime?: number;
+  }>({ dietaryFilters: [] });
 
-  const handleSearch = () => {
+  const [searchResults, setSearchResults] = useState<Recipe[]>([]);
+  const [searching, setSearching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter(); // Initialize router
+
+  const handleSearch = async () => {
+    if (!ingredients.trim()) return;
+
     setSearching(true);
-    // Simulate search
-    setTimeout(() => setSearching(false), 1000);
+    setError(null);
+    setSearchResults([]); // Clear previous results
+
+    try {
+      const response = await fetch("/api/recipes/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ingredients: ingredients.split(',').map(ing => ing.trim()).filter(ing => ing), // Split and clean ingredients
+          filters: {
+             cuisine: filters.cuisine === 'all' ? undefined : filters.cuisine, // Handle 'all' cuisine
+             dietaryFilters: filters.dietaryFilters,
+             difficulty: filters.difficulty,
+             maxTime: filters.maxTime,
+             // Add sortBy if you implement it in FilterPanel
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `API Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSearchResults(data.recipes || []);
+
+    } catch (err: unknown) {
+      console.error("Search failed:", err);
+      setError(err instanceof Error ? err.message : "An unknown error occurred during search.");
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  // Function to handle clicking on a recipe card
+  const handleViewDetails = (recipeId: string) => {
+    router.push(`/recipes/${recipeId}`);
+  };
+
+  const handleFilterChange = (newFilters: any) => {
+     setFilters(newFilters);
+     // Optional: Trigger search immediately on filter change if ingredients are present
+     // if (ingredients.trim()) {
+     //   handleSearch();
+     // }
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {/* Header (Keep as is) */}
       <header className="border-b border-border bg-card" role="banner">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-primary" aria-label="Smart Meal home">
-              Smart Meal
-            </Link>
-            <nav className="flex gap-6" role="navigation" aria-label="Main navigation">
-              <Link href="/dashboard" className="text-neutral hover:text-foreground">
-                Dashboard
-              </Link>
-              <Link href="/search" className="font-medium text-primary" aria-current="page">
-                Search Recipes
-              </Link>
-            </nav>
-          </div>
-        </div>
+        {/* ... existing header code ... */}
       </header>
 
       <main className="mx-auto max-w-7xl px-6 py-12" role="main" id="main-content">
+        {/* Title (Keep as is) */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold">Find Recipes</h1>
-          <p className="mt-2 text-lg text-neutral">
-            Enter your ingredients and discover perfect recipes
-          </p>
+            {/* ... existing title code ... */}
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Search Panel */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle>Your Ingredients</CardTitle>
@@ -66,31 +116,8 @@ export default function SearchPage() {
                   aria-describedby="ingredients-description"
                 />
                 <p id="ingredients-description" className="sr-only">Enter ingredients separated by commas</p>
-                
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="cuisine-select" className="mb-2 block text-sm font-medium">Cuisine Type</label>
-                    <select id="cuisine-select" className="w-full rounded-lg border border-border bg-background px-4 py-2" aria-label="Select cuisine type">
-                      <option>All Cuisines</option>
-                      <option>Indian</option>
-                      <option>Chinese</option>
-                      <option>Italian</option>
-                      <option>Mexican</option>
-                      <option>Thai</option>
-                    </select>
-                  </div>
 
-                  <div>
-                    <label id="dietary-filters-label" className="mb-2 block text-sm font-medium">Dietary Filters</label>
-                    <div className="flex flex-wrap gap-2" role="group" aria-labelledby="dietary-filters-label">
-                      <Badge variant="neutral" className="cursor-pointer" role="button" tabIndex={0} aria-label="Filter by vegetarian">Vegetarian</Badge>
-                      <Badge variant="neutral" className="cursor-pointer" role="button" tabIndex={0} aria-label="Filter by vegan">Vegan</Badge>
-                      <Badge variant="neutral" className="cursor-pointer" role="button" tabIndex={0} aria-label="Filter by gluten-free">Gluten-Free</Badge>
-                      <Badge variant="neutral" className="cursor-pointer" role="button" tabIndex={0} aria-label="Filter by keto">Keto</Badge>
-                      <Badge variant="neutral" className="cursor-pointer" role="button" tabIndex={0} aria-label="Filter by low-carb">Low-Carb</Badge>
-                    </div>
-                  </div>
-                </div>
+                {/* --- Filters Section Removed - Use FilterPanel Below --- */}
 
                 <Button
                   onClick={handleSearch}
@@ -98,71 +125,56 @@ export default function SearchPage() {
                   className="w-full"
                   aria-label={searching ? "Searching for recipes" : "Find recipes based on your ingredients"}
                 >
-                  {searching ? "Searching..." : "Find Recipes 🔍"}
+                  {searching ? (
+                     <><LoadingSpinner size="sm" color="white" /> Searching...</>
+                  ) : "Find Recipes 🔍"}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Results Placeholder */}
-            {ingredients.trim() && !searching && (
-              <section className="mt-6" aria-label="Recipe search results">
-                <h2 className="mb-4 text-2xl font-bold">Recipe Results</h2>
-                <div className="grid gap-4 sm:grid-cols-2" role="list">
-                  {[1, 2, 3, 4].map((i) => (
-                    <Card key={i} className="cursor-pointer hover:-translate-y-1" role="listitem">
-                      <CardHeader>
-                        <div className="mb-2 flex items-center justify-between">
-                          <Badge variant="success" size="sm" aria-label="85% ingredient match">85% Match</Badge>
-                          <Badge variant="info" size="sm">Easy</Badge>
-                        </div>
-                        <CardTitle className="text-lg">Sample Recipe {i}</CardTitle>
-                        <CardDescription>
-                          <span aria-hidden="true">🕐</span> 30 min • <span aria-hidden="true">🍽️</span> 4 servings • <span aria-hidden="true">🔥</span> 350 cal
-                        </CardDescription>
-                      </CardHeader>
-                    </Card>
-                  ))}
+            {/* Filter Panel */}
+             <FilterPanel onFilterChange={handleFilterChange} />
+
+
+            {/* Results Section */}
+            <section className="mt-6" aria-live="polite">
+              <h2 className="mb-4 text-2xl font-bold">Recipe Results</h2>
+              {searching && (
+                <div className="flex justify-center py-10">
+                  <LoadingSpinner size="lg" />
                 </div>
-              </section>
-            )}
+              )}
+              {error && (
+                 <ErrorMessage variant="generic" title="Search Error" message={error} onRetry={handleSearch} />
+              )}
+              {!searching && !error && searchResults.length === 0 && ingredients.trim() && (
+                 <Card>
+                   <CardContent className="py-10 text-center">
+                     <p className="text-muted-foreground">No recipes found matching your ingredients and filters. Try adjusting your search.</p>
+                   </CardContent>
+                 </Card>
+              )}
+              {!searching && !error && searchResults.length > 0 && (
+                // Use RecipeGrid to display actual results
+                <RecipeGrid
+                  recipes={searchResults}
+                  onViewDetails={handleViewDetails} // Pass the navigation handler
+                  // Add onAddToMealPlan and onToggleFavorite if needed later
+                />
+              )}
+            </section>
           </div>
 
-          {/* Tips Panel */}
+          {/* Tips Panel (Keep as is) */}
           <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>Search Tips</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-sm">
-                <div>
-                  <p className="font-medium">✨ Get Better Results</p>
-                  <p className="mt-1 text-neutral">
-                    List common ingredients you have at home
-                  </p>
-                </div>
-                <div>
-                  <p className="font-medium">🎯 Match Percentage</p>
-                  <p className="mt-1 text-neutral">
-                    Shows how well your ingredients match each recipe
-                  </p>
-                </div>
-                <div>
-                  <p className="font-medium">🏷️ Use Filters</p>
-                  <p className="mt-1 text-neutral">
-                    Apply cuisine and dietary filters to narrow results
-                  </p>
-                </div>
-                <div>
-                  <p className="font-medium">📊 Sort Options</p>
-                  <p className="mt-1 text-neutral">
-                    Sort by best match, quickest, or easiest
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+              {/* ... existing tips panel code ... */}
           </div>
         </div>
       </main>
+       {/* Footer (Keep as is) */}
+       <footer className="border-t border-border bg-card py-6">
+          {/* ... existing footer code ... */}
+       </footer>
     </div>
   );
 }

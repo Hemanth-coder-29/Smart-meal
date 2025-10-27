@@ -82,12 +82,7 @@ export default function Dashboard() {
               href="/search"
               icon="🔍"
             />
-            <ActionCard
-              title="Plan Your Week"
-              description="Organize meals for 7 days"
-              href="/planner"
-              icon="📅"
-            />
+           
             <ActionCard
               title="Shopping List"
               description="Auto-generate from meal plan"
@@ -105,13 +100,13 @@ export default function Dashboard() {
               description="Configure nutrition targets"
               href="/profile"
               icon="🎯"
+            /> <ActionCard
+              title="Plan Your Week"
+              description="Organize meals for 7 days"
+              href="/planner"
+              icon="📅"
             />
-            <ActionCard
-              title="View All Recipes"
-              description="Explore 50+ sample recipes"
-              href="/recipes"
-              icon="📖"
-            />
+            
           </div>
         </div>
 

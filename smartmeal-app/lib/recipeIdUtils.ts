@@ -3,32 +3,36 @@
  * Provides ID normalization, fuzzy matching, and suggestion capabilities
  */
 
-import logger from './debug';
+import logger from './debug'; // Ensure logger is imported
 
 /**
  * Normalize a recipe ID for consistent comparison
  * @param rawId - The raw ID from URL or user input
  * @returns Normalized ID string
  */
-export function normalizeRecipeId(rawId: string): string {
-  if (!rawId) return '';
-  
-  // Step 1: URL decode
-  let normalized = decodeURIComponent(rawId);
-  
-  // Step 2: Trim whitespace
-  normalized = normalized.trim();
-  
-  // Step 3: Lowercase
-  normalized = normalized.toLowerCase();
-  
-  // Step 4: Remove common file extensions
-  normalized = normalized.replace(/\.(json|html|htm)$/i, '');
-  
-  // Step 5: Normalize common prefixes (optional - keep as is for now)
-  // This could be expanded if needed: recipe-001, rec-001, r-001 all become the same
-  
-  return normalized;
+export function normalizeRecipeId(rawId: string | null | undefined): string {
+    // Return empty string if input is null, undefined, or not a string
+    if (!rawId || typeof rawId !== 'string') {
+        logger.warn('RecipeIDUtils:Normalize', 'Received invalid ID for normalization', { rawId });
+        return '';
+    }
+
+    // Step 1: URL decode
+    let normalized = decodeURIComponent(rawId);
+
+    // Step 2: Trim whitespace
+    normalized = normalized.trim();
+
+    // Step 3: Lowercase
+    normalized = normalized.toLowerCase();
+
+    // Step 4: Remove common file extensions
+    normalized = normalized.replace(/\.(json|html|htm)$/i, '');
+
+    // Step 5: Normalize common prefixes (optional - add if needed)
+    // Example: normalized = normalized.replace(/^(recipe-|rec-|r-)/, 'recipe-');
+
+    return normalized;
 }
 
 /**
@@ -69,7 +73,7 @@ function levenshteinDistance(str1: string, str2: string): number {
 function similarityScore(str1: string, str2: string): number {
   const maxLen = Math.max(str1.length, str2.length);
   if (maxLen === 0) return 1.0;
-  
+
   const distance = levenshteinDistance(str1, str2);
   return 1.0 - distance / maxLen;
 }
@@ -78,6 +82,8 @@ function similarityScore(str1: string, str2: string): number {
  * Extract numeric portion from ID
  */
 function extractNumeric(id: string): string | null {
+  // Ensure id is a string before matching
+  if (typeof id !== 'string') return null;
   const match = id.match(/\d+/);
   return match ? match[0] : null;
 }
@@ -97,15 +103,25 @@ export function findRecipeById<T extends { id: string; title?: string }>(
   normalizedRequestedId: string;
   matchedId?: string;
 } {
+  // Use the safer normalizeRecipeId function
   const normalizedRequestedId = normalizeRecipeId(requestedId);
-  
+
+  // If normalization failed (invalid input), return no match immediately
+    if (!normalizedRequestedId && requestedId) {
+       logger.warn('RecipeIDUtils:Find', 'Skipping search due to invalid requested ID', { requestedId });
+       return { recipe: null, matchType: 'none', normalizedRequestedId: '' };
+    }
+
+
   logger.debug('RecipeIDUtils', 'Starting ID lookup', {
     rawId: requestedId,
     normalizedId: normalizedRequestedId,
   });
 
-  // Step 1: Exact match (after normalization)
-  let recipe = recipes.find((r) => normalizeRecipeId(r.id) === normalizedRequestedId);
+  // Step 1: Exact match (after normalization) - ADDED SAFETY CHECK
+  let recipe = recipes.find(
+    (r) => r && typeof r.id === 'string' && normalizeRecipeId(r.id) === normalizedRequestedId
+  );
   if (recipe) {
     logger.debug('RecipeIDUtils', 'Exact match found', {
       matchedId: recipe.id,
@@ -118,8 +134,11 @@ export function findRecipeById<T extends { id: string; title?: string }>(
     };
   }
 
-  // Step 2: Case-insensitive match (raw comparison)
-  recipe = recipes.find((r) => r.id.toLowerCase() === requestedId.toLowerCase());
+  // Step 2: Case-insensitive match (raw comparison) - ADDED SAFETY CHECK
+  // Also check if requestedId is a valid string
+  recipe = recipes.find(
+    (r) => r && typeof r.id === 'string' && typeof requestedId === 'string' && r.id.toLowerCase() === requestedId.toLowerCase()
+  );
   if (recipe) {
     logger.warn('RecipeIDUtils', 'Case-insensitive match found', {
       requestedId,
@@ -134,14 +153,23 @@ export function findRecipeById<T extends { id: string; title?: string }>(
     };
   }
 
-  // Step 3: Fuzzy matching with Levenshtein distance
-  // Only attempt if edit distance is small (within 2 characters)
+  // Step 3: Fuzzy matching with Levenshtein distance - ADDED SAFETY CHECK in loop
   let bestMatch: T | null = null;
   let bestScore = 0;
   const threshold = 0.8; // 80% similarity required
 
   for (const r of recipes) {
-    const score = similarityScore(normalizedRequestedId, normalizeRecipeId(r.id));
+    // ADDED SAFETY CHECK: Skip if recipe object or its ID is invalid or not a string
+    if (!r || typeof r.id !== 'string') {
+      logger.warn('RecipeIDUtils:Fuzzy', 'Skipping invalid recipe object during fuzzy match', { recipeObject: r });
+      continue; // Skip this iteration
+    }
+
+    const currentNormalizedId = normalizeRecipeId(r.id);
+    // Skip comparison if either normalized ID is empty
+    if (!normalizedRequestedId || !currentNormalizedId) continue;
+
+    const score = similarityScore(normalizedRequestedId, currentNormalizedId);
     if (score > bestScore && score >= threshold) {
       bestScore = score;
       bestMatch = r;
@@ -201,22 +229,32 @@ export function generateIdSuggestions<T extends { id: string; title?: string }>(
     reason: string;
   }> = [];
 
+   // Don't generate suggestions if the requested ID was invalid
+   if (!normalizedRequestedId && requestedId) {
+       return [];
+   }
+
   // Calculate similarity for all recipes
   for (const recipe of recipes) {
+     // Safety check for recipe object and ID
+     if (!recipe || typeof recipe.id !== 'string') continue;
+
     const normalizedRecipeId = normalizeRecipeId(recipe.id);
+     // Skip if recipe ID normalization fails or if it's the same as requested (shouldn't happen if not found, but safe check)
+     if (!normalizedRecipeId || normalizedRecipeId === normalizedRequestedId) continue;
+
     const score = similarityScore(normalizedRequestedId, normalizedRecipeId);
-    
-    if (score > 0.5) {
-      // Only suggest if at least 50% similar
+
+    if (score > 0.5) { // Only suggest if at least 50% similar
       let reason = 'Similar ID pattern';
-      
+
       // Check for numeric similarity
       const requestedNumeric = extractNumeric(normalizedRequestedId);
       const recipeNumeric = extractNumeric(normalizedRecipeId);
       if (requestedNumeric && recipeNumeric && requestedNumeric === recipeNumeric) {
         reason = 'Same numeric ID';
       }
-      
+
       suggestions.push({
         id: recipe.id,
         title: recipe.title,

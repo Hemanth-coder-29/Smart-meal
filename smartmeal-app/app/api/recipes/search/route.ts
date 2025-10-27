@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       cuisine: filters?.cuisine,
       dietaryFilters: filters?.dietaryFilters || [],
       sortBy: filters?.sortBy || "bestMatch",
-      minMatchPercentage: filters?.minMatchPercentage || 30,
+      minMatchPercentage: filters?.minMatchPercentage || 1,
     });
 
     // Log search results
