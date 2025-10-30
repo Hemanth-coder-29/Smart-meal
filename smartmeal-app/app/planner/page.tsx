@@ -15,6 +15,9 @@ import { useMealPlan } from "@/contexts/MealPlanContext";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { categorizeIngredient } from "@/lib/categoryClassifier";
 import logger from "@/lib/debug"; // Assuming you have this configured
+// --- PDF IMPORTS ADDED ---
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable';
 
 // Constants
 const DAYS_OF_WEEK = [
@@ -200,31 +203,97 @@ export default function PlannerPage() {
     };
 
 
+    // --- THIS IS THE MODIFIED FUNCTION ---
     const handleExportWeek = () => {
-        // ... (Keep existing export logic) ...
         if (!mealPlan) {
-            alert("No meal plan loaded to export.");
-            return;
+             alert("No meal plan loaded to export.");
+             logger.warn('PlannerPage:ExportWeek', 'Attempted export: Meal plan not loaded');
+             return;
         }
-        logger.info('PlannerPage:ExportWeek', 'Exporting current meal plan as JSON');
+
+        logger.info('PlannerPage:ExportWeek', 'Exporting current meal plan as PDF...');
+
         try {
-            const jsonContent = JSON.stringify(mealPlan, null, 2);
-            const blob = new Blob([jsonContent], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            const weekStartDate = mealPlan.weekStarting ? new Date(mealPlan.weekStarting).toISOString().split('T')[0] : 'current-week';
-            a.download = `smartmeal-plan-${weekStartDate}.json`;
-            document.body.appendChild(a); // Append link to body for Firefox compatibility
-            a.click();
-            document.body.removeChild(a); // Clean up link
-            URL.revokeObjectURL(url);
-            alert("Meal plan exported successfully!");
+            const doc = new jsPDF();
+            const margin = 15;
+            let yPosition = margin;
+
+            // --- Set Document Title ---
+            doc.setFontSize(18);
+            doc.text("Smart Meal - Meal Plan", margin, yPosition);
+            yPosition += 10;
+
+            // --- Add Week Starting Date ---
+            const weekStartDate = mealPlan.weekStarting 
+                ? new Date(mealPlan.weekStarting).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                  }) 
+                : 'Current Week';
+            
+            doc.setFontSize(12);
+            doc.setTextColor(100);
+            doc.text(`Week Starting: ${weekStartDate}`, margin, yPosition);
+            yPosition += 10;
+
+            // --- Prepare Table Data ---
+            const tableHeaders = ["Day", "Breakfast", "Lunch", "Dinner"];
+            const tableData: string[][] = [];
+
+            // Loop through days (using the constant you already have)
+            DAYS_OF_WEEK.forEach(dayInfo => {
+                const dayKey = dayInfo.value;
+                const dayLabel = dayInfo.label;
+                
+                // Get meals for the day, providing a fallback
+                const meals = mealPlan.meals[dayKey] ?? { breakfast: null, lunch: null, dinner: null };
+                
+                const breakfast = meals.breakfast?.recipeName || " - ";
+                const lunch = meals.lunch?.recipeName || " - ";
+                const dinner = meals.dinner?.recipeName || " - ";
+                
+                tableData.push([dayLabel, breakfast, lunch, dinner]);
+            });
+
+            // --- Generate Table ---
+            autoTable(doc, {
+                head: [tableHeaders],
+                body: tableData,
+                startY: yPosition,
+                margin: { left: margin, right: margin },
+                theme: 'grid',
+                styles: { 
+                    fontSize: 9, 
+                    cellPadding: 3,
+                    overflow: 'linebreak', // Handle long recipe names
+                },
+                headStyles: { 
+                    fillColor: [255, 107, 53], // Smart Meal primary orange
+                    textColor: [255, 255, 255],
+                    fontSize: 10,
+                },
+                // Set column widths to allow wrapping
+                columnStyles: {
+                    0: { cellWidth: 25 }, // Day
+                    1: { cellWidth: 48 }, // Breakfast
+                    2: { cellWidth: 48 }, // Lunch
+                    3: { cellWidth: 48 }, // Dinner
+                }
+            });
+            
+            // --- Save the PDF ---
+            const weekStartDateISO = mealPlan.weekStarting ? new Date(mealPlan.weekStarting).toISOString().split('T')[0] : 'current-week';
+            const pdfFileName = `smartmeal-plan-${weekStartDateISO}.pdf`;
+            doc.save(pdfFileName);
+
+            logger.info('PlannerPage:ExportWeek', `Exported meal plan as PDF: ${pdfFileName}`);
+            alert("Meal plan PDF exported successfully!");
+
         } catch (error) {
-            logger.error('PlannerPage:ExportWeek', 'Failed to export meal plan', {}, error instanceof Error ? error : new Error(String(error)));
-            alert("Failed to export meal plan.");
+            logger.error('PlannerPage:ExportWeek', 'Failed to export meal plan PDF', {}, error instanceof Error ? error : new Error(String(error)));
+            alert("Failed to export meal plan as PDF.");
         }
     };
+    // --- END OF MODIFIED FUNCTION ---
 
     const handleCopyToNextWeek = () => {
         // ... (Keep existing copy logic) ...
