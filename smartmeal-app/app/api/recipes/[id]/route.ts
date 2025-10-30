@@ -8,34 +8,31 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 // Define the context type explicitly
-interface ApiContext {
-    params: { id: string } | Promise<{ id: string }>; // Acknowledge it might be a Promise
-}
+// --- THIS INTERFACE IS REMOVED ---
 
 export async function GET(
   request: NextRequest,
-  context: ApiContext // Use the potentially Promise-like context
+  // --- THIS IS THE CORRECTED TYPE ---
+  context: { params: { id: string } } 
 ) {
   const startTime = Date.now();
   const requestId = `req_${Math.random().toString(36).substring(7)}`;
   let rawId: string | undefined; // Declare rawId outside try block
 
   try {
-    // --- TRY AWAITING PARAMS ---
-    // Attempt to resolve context.params if it's a Promise
-    const resolvedParams = await context.params;
-    rawId = resolvedParams.id; // Access id from the resolved object
-    // --- END AWAIT ---
+    // --- THIS IS THE CORRECTED ASSIGNMENT ---
+    rawId = context.params.id; // Access id directly
+    // --- END CORRECTION ---
 
     // Log request entry
     logger.info('API:RecipeDetail', 'Request received', {
-      rawId, // Log the ID after potential await
+      rawId, // Log the ID
       requestId,
     });
 
     // Add an early check for undefined/empty rawId
     if (!rawId) {
-      logger.error('API:RecipeDetail', 'Recipe ID is missing or invalid after resolving params.', { resolvedParams, contextParams: context.params, requestId });
+      logger.error('API:RecipeDetail', 'Recipe ID is missing or invalid.', { contextParams: context.params, requestId });
       return NextResponse.json(
         {
           error: "Invalid request: Recipe ID parameter is missing.",
@@ -48,8 +45,6 @@ export async function GET(
       );
     }
 
-    // --- The rest of the function remains the same ---
-
     // Load recipes from JSON file
     logger.debug('API:RecipeDetail', 'Loading recipes from file');
     const recipesPath = path.join(process.cwd(), "public", "data", "recipes.json");
@@ -60,14 +55,27 @@ export async function GET(
       recipes = JSON.parse(fileContent);
       logger.debug('API:RecipeDetail', 'Recipes loaded successfully', { totalRecipes: recipes.length, requestId });
     } catch (fileError) {
-      logger.error('API:RecipeDetail', 'Failed to read or parse recipes file', { /* ... error logging ... */ });
-      return NextResponse.json( /*... file error response ...*/ { status: 500 });
+      logger.error('API:RecipeDetail', 'Failed to read or parse recipes file', { 
+        path: recipesPath,
+        error: fileError instanceof Error ? fileError.message : String(fileError),
+        requestId,
+      }, fileError instanceof Error ? fileError : undefined);
+      return NextResponse.json(
+        { 
+          error: "We're having trouble loading recipes. Please try again in a moment.",
+          code: "RECIPE_FILE_READ_ERROR",
+          statusCode: 500,
+          timestamp: new Date().toISOString(),
+          requestId,
+        }, 
+        { status: 500 }
+      );
     }
 
     // Use fuzzy matching to find recipe
     const { recipe, matchType, normalizedRequestedId, matchedId } = findRecipeById(
       recipes,
-      rawId // Use the awaited ID
+      rawId // Use the ID
     );
 
     // Log ID validation details
@@ -77,20 +85,58 @@ export async function GET(
     // Handle case where recipe is not found
     if (!recipe) {
       const suggestions = generateIdSuggestions(recipes, rawId, 3);
-      logger.warn('API:RecipeDetail', 'Recipe not found', { /* ... logging ... */ });
       const processingTime = Date.now() - startTime;
-      return NextResponse.json( /*... 404 response ...*/ { status: 404 });
+      logger.warn('API:RecipeDetail', 'Recipe not found', { 
+        rawId, 
+        normalizedId: normalizedRequestedId, 
+        suggestionsCount: suggestions.length,
+        processingTime: `${processingTime}ms`,
+        requestId 
+      });
+      return NextResponse.json(
+        { 
+          error: "Recipe not found. It may have been removed or the link is incorrect.",
+          code: "RECIPE_NOT_FOUND_INVALID_ID",
+          statusCode: 404,
+          details: {
+            requestedId: rawId,
+            normalizedId: normalizedRequestedId,
+            suggestions: suggestions,
+          },
+          timestamp: new Date().toISOString(),
+          requestId,
+        }, 
+        { status: 404 }
+      );
     }
 
     // --- Success Case ---
     const processingTime = Date.now() - startTime;
-    // ... (Success logging and response logic - remains the same) ...
      if (matchType !== 'exact') {
-       logger.warn('API:RecipeDetail', `Non-exact match used: ${matchType}`, { /*...*/ });
+       logger.warn('API:RecipeDetail', `Non-exact match used: ${matchType}`, { 
+         rawId, 
+         matchedId: matchedId, 
+         processingTime: `${processingTime}ms`,
+         requestId 
+        });
      } else {
-       logger.success('API:RecipeDetail', 'Recipe found (exact match)', { /*...*/ });
+       logger.success('API:RecipeDetail', 'Recipe found (exact match)', { 
+         rawId, 
+         recipeTitle: recipe.title,
+         processingTime: `${processingTime}ms`,
+         requestId
+       });
      }
-     return NextResponse.json({ recipe, /*...*/ }); // Default status is 200
+     return NextResponse.json({ 
+        recipe,
+        meta: {
+            matchType,
+            requestedId: rawId,
+            matchedId,
+            processingTime: `${processingTime}ms`,
+            requestId
+        }
+    });
 
   } catch (error) { // General catch block
     const processingTime = Date.now() - startTime;
@@ -101,6 +147,15 @@ export async function GET(
         requestId,
       }, error instanceof Error ? error : undefined);
 
-    return NextResponse.json( /*... 500 error response ...*/ { status: 500 });
+    return NextResponse.json(
+      { 
+        error: "An unexpected server error occurred.",
+        code: "RECIPE_DETAIL_ERROR",
+        statusCode: 500,
+        timestamp: new Date().toISOString(),
+        requestId,
+      }, 
+      { status: 500 }
+    );
   }
 }
