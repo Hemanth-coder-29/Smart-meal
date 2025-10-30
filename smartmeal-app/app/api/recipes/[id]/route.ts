@@ -7,8 +7,10 @@ import type { DetailedRecipe } from "@/types/recipe";
 import { promises as fs } from 'fs';
 import path from 'path';
 
-// Define the context type explicitly
 // --- THIS INTERFACE IS REMOVED ---
+// interface ApiContext {
+//     params: { id: string } | Promise<{ id: string }>; 
+// }
 
 export async function GET(
   request: NextRequest,
