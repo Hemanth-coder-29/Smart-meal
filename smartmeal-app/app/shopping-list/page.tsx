@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { ShoppingList, ShoppingItem, IngredientCategory } from "@/types/shopping";
-import { categorizeIngredient } from "@/lib/categoryClassifier";
+import type { ShoppingList, ShoppingItem, IngredientCategory } from "@/types/shopping"; //
+import { categorizeIngredient } from "@/lib/categoryClassifier"; //
+// --- Import jsPDF and autoTable ---
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable';
 
 const CATEGORIES: { name: IngredientCategory; icon: string; label: string }[] = [
   { name: "produce", icon: "🥬", label: "Produce" },
@@ -16,120 +19,198 @@ const CATEGORIES: { name: IngredientCategory; icon: string; label: string }[] = 
   { name: "canned-packaged", icon: "🥫", label: "Canned & Packaged" },
   { name: "frozen", icon: "🧊", label: "Frozen" },
   { name: "other", icon: "🛒", label: "Other" },
-];
+]; //
 
 export default function ShoppingListPage() {
-  const [items, setItems] = useState<ShoppingItem[]>([]);
-  const [newItemName, setNewItemName] = useState("");
-  const [newItemAmount, setNewItemAmount] = useState("");
-  const [showCompleted, setShowCompleted] = useState(false);
+  const [items, setItems] = useState<ShoppingItem[]>([]); //
+  const [newItemName, setNewItemName] = useState(""); //
+  const [newItemAmount, setNewItemAmount] = useState(""); //
+  const [showCompleted, setShowCompleted] = useState(false); //
 
   useEffect(() => {
     // Load from localStorage
-    const stored = localStorage.getItem("smartmeal_shopping_list");
+    const stored = localStorage.getItem("smartmeal_shopping_list"); //
     if (stored) {
       try {
-        const parsed = JSON.parse(stored);
-        setItems(parsed.items || []);
+        const parsed = JSON.parse(stored); //
+        setItems(parsed.items || []); //
       } catch (error) {
-        console.error("Failed to load shopping list:", error);
+        console.error("Failed to load shopping list:", error); //
       }
     }
-  }, []);
+  }, []); //
 
   const saveToStorage = (updatedItems: ShoppingItem[]) => {
     const list: ShoppingList = {
-      items: updatedItems,
-      generatedFrom: "manual",
-      lastModified: new Date().toISOString(),
+      items: updatedItems, //
+      generatedFrom: "manual", //
+      lastModified: new Date().toISOString(), //
     };
-    localStorage.setItem("smartmeal_shopping_list", JSON.stringify(list));
+    localStorage.setItem("smartmeal_shopping_list", JSON.stringify(list)); //
   };
 
   const addItem = () => {
-    if (!newItemName.trim()) return;
+    if (!newItemName.trim()) return; //
 
     const newItem: ShoppingItem = {
-      id: `item_${Date.now()}`,
-      name: newItemName.trim(),
-      quantity: parseFloat(newItemAmount) || 1,
-      unit: "unit",
-      category: categorizeIngredient(newItemName.trim()),
-      purchased: false,
-      fromRecipes: [],
+      id: `item_${Date.now()}`, //
+      name: newItemName.trim(), //
+      // Ensure quantity defaults correctly, handle potential parsing issues
+      quantity: parseFloat(newItemAmount) || 1, //
+      // Attempt to parse unit if provided in amount, otherwise default
+      unit: newItemAmount.replace(/[0-9.]/g, '').trim() || "unit", // Basic unit parsing
+      category: categorizeIngredient(newItemName.trim()), //
+      purchased: false, //
+      fromRecipes: [], //
     };
 
-    const updatedItems = [...items, newItem];
-    setItems(updatedItems);
-    saveToStorage(updatedItems);
-    setNewItemName("");
-    setNewItemAmount("");
+    const updatedItems = [...items, newItem]; //
+    setItems(updatedItems); //
+    saveToStorage(updatedItems); //
+    setNewItemName(""); //
+    setNewItemAmount(""); //
   };
 
   const toggleItem = (itemId: string) => {
     const updatedItems = items.map((item) =>
-      item.id === itemId ? { ...item, purchased: !item.purchased } : item
+      item.id === itemId ? { ...item, purchased: !item.purchased } : item //
     );
-    setItems(updatedItems);
-    saveToStorage(updatedItems);
+    setItems(updatedItems); //
+    saveToStorage(updatedItems); //
   };
 
   const deleteItem = (itemId: string) => {
-    const updatedItems = items.filter((item) => item.id !== itemId);
-    setItems(updatedItems);
-    saveToStorage(updatedItems);
+    const updatedItems = items.filter((item) => item.id !== itemId); //
+    setItems(updatedItems); //
+    saveToStorage(updatedItems); //
   };
 
   const clearCompleted = () => {
-    const updatedItems = items.filter((item) => !item.purchased);
-    setItems(updatedItems);
-    saveToStorage(updatedItems);
+    const updatedItems = items.filter((item) => !item.purchased); //
+    setItems(updatedItems); //
+    saveToStorage(updatedItems); //
   };
 
   const clearAll = () => {
-    if (confirm("Are you sure you want to clear all items?")) {
-      setItems([]);
-      saveToStorage([]);
+    if (confirm("Are you sure you want to clear all items?")) { //
+      setItems([]); //
+      saveToStorage([]); //
     }
   };
 
+  // --- Updated exportList function ---
   const exportList = (format: "text" | "pdf") => {
-    if (format === "text") {
-      let text = "Smart Meal - Shopping List\n";
-      text += "========================\n\n";
+    // Filter only non-purchased items for export
+    const itemsToExport = items.filter(item => !item.purchased); //
 
-      CATEGORIES.forEach((cat) => {
-        const categoryItems = getItemsByCategory(cat.name);
-        if (categoryItems.length > 0) {
-          text += `${cat.icon} ${cat.label}\n`;
+    if (itemsToExport.length === 0) {
+        alert("No items to export (list is empty or all items are checked).");
+        return;
+    }
+
+
+    if (format === "text") {
+      let text = "Smart Meal - Shopping List\n"; //
+      text += "========================\n\n"; //
+
+      CATEGORIES.forEach((cat) => { //
+        // Use itemsToExport here
+        const categoryItems = itemsToExport.filter((item) => item.category === cat.name); //
+        if (categoryItems.length > 0) { //
+          text += `${cat.icon} ${cat.label}\n`; //
           categoryItems.forEach((item) => {
-            text += `  ${item.purchased ? "✓" : "○"} ${item.quantity} ${item.unit} ${item.name}\n`;
+            // Use '○' as items are already filtered to be unpurchased
+            text += `  ○ ${item.quantity} ${item.unit} ${item.name}\n`; //
           });
-          text += "\n";
+          text += "\n"; //
         }
       });
 
-      const blob = new Blob([text], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "shopping-list.txt";
-      a.click();
-      URL.revokeObjectURL(url);
+      const blob = new Blob([text], { type: "text/plain" }); //
+      const url = URL.createObjectURL(blob); //
+      const a = document.createElement("a"); //
+      a.href = url; //
+      a.download = "shopping-list.txt"; //
+      a.click(); //
+      URL.revokeObjectURL(url); //
+
+    } else if (format === "pdf") {
+      const doc = new jsPDF();
+      const margin = 15;
+      let yPosition = margin;
+
+      doc.setFontSize(18);
+      doc.text("Smart Meal - Shopping List", margin, yPosition);
+      yPosition += 10;
+
+      doc.setFontSize(10);
+      doc.setTextColor(100);
+      doc.text(`Generated on: ${new Date().toLocaleDateString()}`, margin, yPosition);
+      yPosition += 10;
+
+      const tableData: (string | number)[][] = []; // Explicit type
+      const tableHeaders = ["Category", "Item", "Quantity", "Unit"];
+
+      CATEGORIES.forEach((cat) => { //
+        // Use itemsToExport here
+        const categoryItems = itemsToExport.filter((item) => item.category === cat.name); //
+        if (categoryItems.length > 0) { //
+           categoryItems.forEach((item, index) => {
+             tableData.push([
+                index === 0 ? `${cat.icon} ${cat.label}` : "", // Show category only once
+                item.name, //
+                item.quantity.toString(), //
+                item.unit //
+             ]);
+           });
+        }
+      });
+
+      if (tableData.length > 0) {
+        autoTable(doc, {
+          head: [tableHeaders],
+          body: tableData,
+          startY: yPosition,
+          margin: { left: margin, right: margin },
+          theme: 'grid',
+          styles: { fontSize: 10 },
+          headStyles: { fillColor: [255, 107, 53] }, // Smart Meal primary orange
+           // Add didDrawCell to handle potential text overflow and add check boxes
+            didDrawCell: (data) => {
+              // Add a checkbox placeholder for each item row (optional)
+              // This is visual only, not interactive in the PDF
+              if (data.column.index === 0 && data.cell.section === 'body') {
+                 // Adjust coordinates as needed
+                 // doc.rect(data.cell.x + 2, data.cell.y + 2, 3, 3);
+              }
+            }
+        });
+      } else {
+         // This case should theoretically not happen due to the check at the start
+         doc.setFontSize(12);
+         doc.setTextColor(150);
+         doc.text("No items to export.", margin, yPosition);
+      }
+
+      doc.save("smartmeal-shopping-list.pdf");
+
     } else {
-      alert("PDF export coming soon!");
+      console.error("Unsupported export format requested:", format);
+      alert("Unsupported export format!"); //
     }
   };
 
+
   const getItemsByCategory = (category: IngredientCategory) => {
-    return items.filter((item) => item.category === category);
+    return items.filter((item) => item.category === category); //
   };
 
-  const displayedItems = showCompleted ? items : items.filter((item) => !item.purchased);
-  const checkedCount = items.filter((item) => item.purchased).length;
-  const totalCount = items.length;
-  const progress = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
+  const displayedItems = showCompleted ? items : items.filter((item) => !item.purchased); //
+  const checkedCount = items.filter((item) => item.purchased).length; //
+  const totalCount = items.length; //
+  const progress = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0; //
 
+  // --- Return the JSX (no changes needed here from your provided code) ---
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -142,6 +223,7 @@ export default function ShoppingListPage() {
                 {totalCount} items · {checkedCount} completed
               </p>
             </div>
+            {/* Export Buttons */}
             <div className="flex gap-2">
               <Button variant="ghost" onClick={() => exportList("text")}>
                 📄 Export Text
@@ -149,7 +231,7 @@ export default function ShoppingListPage() {
               <Button variant="ghost" onClick={() => exportList("pdf")}>
                 📑 Export PDF
               </Button>
-              <Button variant="primary">+ From Meal Plan</Button>
+              <Button variant="primary">+ From Meal Plan</Button> {/* Add onClick handler later */}
             </div>
           </div>
 
@@ -181,7 +263,8 @@ export default function ShoppingListPage() {
                 />
                 <input
                   type="text"
-                  placeholder="Amount (e.g., 2 lbs)"
+                  // Changed placeholder to reflect quantity + unit together
+                  placeholder="Quantity & Unit (e.g., 2 lbs)"
                   value={newItemAmount}
                   onChange={(e) => setNewItemAmount(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && addItem()}
@@ -196,6 +279,7 @@ export default function ShoppingListPage() {
         </div>
       </div>
 
+      {/* Main Content Area */}
       <div className="container mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Column - Shopping Items */}
@@ -220,9 +304,8 @@ export default function ShoppingListPage() {
 
             {/* Categories */}
             {CATEGORIES.map((cat) => {
-              const categoryItems = getItemsByCategory(cat.name).filter((item) =>
-                showCompleted ? true : !item.purchased
-              );
+              // Use displayedItems derived logic based on showCompleted state
+              const categoryItems = displayedItems.filter(item => item.category === cat.name);
 
               if (categoryItems.length === 0) return null;
 
@@ -249,6 +332,7 @@ export default function ShoppingListPage() {
                             checked={item.purchased}
                             onChange={() => toggleItem(item.id)}
                             className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
+                            aria-label={`Mark ${item.name} as ${item.purchased ? 'not purchased' : 'purchased'}`}
                           />
                           <div className="flex-1">
                             <span
@@ -267,7 +351,7 @@ export default function ShoppingListPage() {
                           <button
                             onClick={() => deleteItem(item.id)}
                             className="text-red-500 hover:text-red-700 p-1"
-                            aria-label="Delete item"
+                            aria-label={`Delete ${item.name}`}
                           >
                             🗑
                           </button>
@@ -279,19 +363,29 @@ export default function ShoppingListPage() {
               );
             })}
 
-            {displayedItems.length === 0 && (
+            {/* Empty State Logic */}
+            {items.length > 0 && displayedItems.length === 0 && !showCompleted && (
+                 <Card>
+                    <CardContent className="py-12 text-center">
+                    <p className="text-muted-foreground">All items are marked as completed! 🎉</p>
+                    <Button variant="ghost" size="sm" onClick={() => setShowCompleted(true)} className="mt-4">
+                        Show Completed Items
+                    </Button>
+                    </CardContent>
+                 </Card>
+            )}
+             {items.length === 0 && (
               <Card>
                 <CardContent className="py-12 text-center">
                   <p className="text-muted-foreground mb-4">
-                    {totalCount === 0
-                      ? "No items in your shopping list yet"
-                      : "All items completed! 🎉"}
+                    No items in your shopping list yet.
                   </p>
-                  <Button variant="primary">+ Add Items from Meal Plan</Button>
+                  <Button variant="primary">+ Add Items from Meal Plan</Button> {/* Add onClick later */}
                 </CardContent>
               </Card>
             )}
-          </div>
+          </div> {/* End Left Column */}
+
 
           {/* Right Column - Actions & Stats */}
           <div className="space-y-6">
@@ -342,19 +436,20 @@ export default function ShoppingListPage() {
                 <CardTitle>Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button variant="secondary" className="w-full">
+                <Button variant="secondary" className="w-full" disabled> {/* Add onClick later */}
                   📤 Share List
                 </Button>
-                <Button variant="secondary" className="w-full">
+                <Button variant="secondary" className="w-full" onClick={() => window.print()}> {/* Simple print */}
                   🖨 Print List
                 </Button>
-                <Button variant="secondary" className="w-full">
+                 <Button variant="secondary" className="w-full" disabled> {/* Add onClick later */}
                   💾 Save Template
                 </Button>
                 <Button
                   variant="ghost"
                   className="w-full text-red-600 hover:text-red-700 hover:bg-red-50"
                   onClick={clearAll}
+                  disabled={items.length === 0} // Disable if list is empty
                 >
                   🗑 Clear All Items
                 </Button>
@@ -375,7 +470,7 @@ export default function ShoppingListPage() {
                 </ul>
               </CardContent>
             </Card>
-          </div>
+          </div> {/* End Right Column */}
         </div>
       </div>
     </div>

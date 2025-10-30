@@ -1,370 +1,440 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+// --- Ensure ALL these imports are present ---
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { MealSlot } from "@/types/mealPlan";
+import type { MealSlot, DayOfWeek, MealType } from "@/types/mealPlan";
 import type { DailyNutrition } from "@/types/nutrition";
+import type { DetailedRecipe, Ingredient } from "@/types/recipe";
+import type { ShoppingItem, IngredientCategory } from "@/types/shopping";
 import { aggregateNutrition } from "@/lib/nutritionCalculator";
+import { useMealPlan } from "@/contexts/MealPlanContext";
+import { useShoppingList } from "@/contexts/ShoppingListContext";
+import { categorizeIngredient } from "@/lib/categoryClassifier";
+import logger from "@/lib/debug"; // Assuming you have this configured
 
+// Constants
 const DAYS_OF_WEEK = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+    { value: "monday" as DayOfWeek, label: "Monday" },
+    { value: "tuesday" as DayOfWeek, label: "Tuesday" },
+    { value: "wednesday" as DayOfWeek, label: "Wednesday" },
+    { value: "thursday" as DayOfWeek, label: "Thursday" },
+    { value: "friday" as DayOfWeek, label: "Friday" },
+    { value: "saturday" as DayOfWeek, label: "Saturday" },
+    { value: "sunday" as DayOfWeek, label: "Sunday" },
 ];
 
-const MEAL_TIMES = ["Breakfast", "Lunch", "Dinner"] as const;
+const MEAL_TIMES = ["breakfast", "lunch", "dinner"] as const;
+type MealTimeKey = typeof MEAL_TIMES[number];
 
 export default function PlannerPage() {
-  const [selectedDay, setSelectedDay] = useState(0);
-  const [weekPlan, setWeekPlan] = useState<Record<number, (MealSlot | null)[]>>(
-    Object.fromEntries(
-      Array.from({ length: 7 }, (_, i) => [
-        i,
-        Array(3).fill(null) as (MealSlot | null)[],
-      ])
-    )
-  );
+    // --- State ---
+    const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+    const [allRecipes, setAllRecipes] = useState<DetailedRecipe[]>([]);
+    const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
 
-  const currentDayMeals = weekPlan[selectedDay] || Array(3).fill(null);
-  const dailyNutrition = aggregateNutrition(currentDayMeals);
+    // --- Hooks ---
+    // **** Initialize useRouter and useSearchParams HERE ****
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    // ******************************************************
 
-  const handleRemoveMeal = (dayIndex: number, mealIndex: number) => {
-    setWeekPlan((prev) => ({
-      ...prev,
-      [dayIndex]: prev[dayIndex].map((meal, i) =>
-        i === mealIndex ? null : meal
-      ),
-    }));
-  };
+    const { mealPlan, updateMealSlot, removeMealSlot, copyToNextWeek, clearDay, clearWeek } = useMealPlan();
+    const { addItem: addShoppingItem, clearAll: clearShoppingList } = useShoppingList();
 
-  const totalWeeklyCalories = Object.values(weekPlan).reduce((total, day) => {
-    const dayNutrition = aggregateNutrition(day);
-    return total + dayNutrition.calories;
-  }, 0);
+    // --- Effects ---
+    // Fetch all recipes on component mount
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            setIsLoadingRecipes(true);
+            logger.info('PlannerPage:Recipes', 'Fetching all recipes...');
+            try {
+                const response = await fetch('/data/recipes.json');
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch recipes: ${response.status} ${response.statusText}`);
+                }
+                const data = await response.json();
+                 if (!Array.isArray(data)) {
+                    throw new Error("Fetched recipe data is not an array.");
+                 }
+                setAllRecipes(data);
+                logger.info('PlannerPage:Recipes', `Loaded ${data.length} recipes.`);
+            } catch (error) {
+                logger.error('PlannerPage:Recipes', 'Error fetching recipes', {}, error instanceof Error ? error : new Error(String(error)));
+                setAllRecipes([]);
+            } finally {
+                setIsLoadingRecipes(false);
+            }
+        };
+        fetchRecipes();
+    }, []);
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Meal Planner</h1>
-              <p className="text-muted-foreground">
-                Plan your week and track nutrition
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="ghost">← Previous Week</Button>
-              <Button variant="ghost">This Week</Button>
-              <Button variant="ghost">Next Week →</Button>
-            </div>
-          </div>
+    // Handle return navigation from Favorites
+    useEffect(() => {
+       const returnDay = searchParams.get('returnDay');
+       if (returnDay) {
+         const dayIndex = DAYS_OF_WEEK.findIndex(d => d.value === returnDay);
+         if (dayIndex !== -1 && dayIndex !== selectedDayIndex) {
+           setSelectedDayIndex(dayIndex);
+           logger.debug('PlannerPage:ReturnNav', `Returned from favorites, focusing on ${returnDay}`);
+           // Optional: Clean URL
+           // router.replace('/planner', { scroll: false });
+         }
+       }
+     }, [searchParams, selectedDayIndex, router]); // Add router here if using replace
 
-          {/* Weekly Overview */}
-          <div className="grid grid-cols-7 gap-2">
-            {DAYS_OF_WEEK.map((day, index) => {
-              const dayMeals = weekPlan[index];
-              const dayCalories = aggregateNutrition(dayMeals).calories;
-              const mealCount = dayMeals.filter((m) => m !== null).length;
+    // --- Derived State ---
+    const currentDayKey = DAYS_OF_WEEK[selectedDayIndex]?.value;
+    const currentDayMealsData = mealPlan?.meals[currentDayKey] ?? { breakfast: null, lunch: null, dinner: null };
+    const dailyNutrition = aggregateNutrition(Object.values(currentDayMealsData));
+    const totalWeeklyCalories = mealPlan ? Object.values(mealPlan.meals).reduce((total, dayMeals) => {
+        const mealsForDay = dayMeals ? Object.values(dayMeals) : [];
+        const dayNutrition = aggregateNutrition(mealsForDay);
+        return total + (dayNutrition?.calories ?? 0);
+    }, 0) : 0;
+    const totalMealsPlanned = mealPlan ? Object.values(mealPlan.meals).reduce((count, dayMeals) => {
+       const validSlots = dayMeals ? Object.values(dayMeals).filter(slot => slot && slot.recipeId) : [];
+       return count + validSlots.length;
+    }, 0) : 0;
 
-              return (
-                <button
-                  key={day}
-                  onClick={() => setSelectedDay(index)}
-                  className={`p-3 rounded-lg border-2 transition-all text-left ${
-                    selectedDay === index
-                      ? "border-primary bg-primary/5"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <div className="font-semibold text-sm mb-1">{day.slice(0, 3)}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {mealCount}/3 meals
-                  </div>
-                  <div className="text-xs font-medium text-primary mt-1">
-                    {dayCalories} cal
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+    // --- Event Handlers ---
+    const handleRemoveMeal = (mealIndex: number) => {
+        if (!currentDayKey) return;
+        const mealType = MEAL_TIMES[mealIndex];
+        removeMealSlot(currentDayKey, mealType);
+        logger.info('PlannerPage:RemoveMeal', `Removed meal from ${currentDayKey} ${mealType}`);
+    };
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Meal Slots */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold">
-                {DAYS_OF_WEEK[selectedDay]}
-              </h2>
-              <Button variant="primary">+ Add from Search</Button>
-            </div>
+    // This function should now have access to 'router'
+    const handleAddRecipeClick = (mealIndex: number) => {
+        console.log('--- ADD RECIPE CLICKED ---', { mealIndex }); // Keep for testing
+        if (!currentDayKey) {
+             console.error("handleAddRecipeClick: currentDayKey is not set!");
+             return;
+        }
+        const mealType = MEAL_TIMES[mealIndex];
+        logger.info('PlannerPage:AddRecipe', `Navigating to favorites for ${currentDayKey} ${mealType}`);
+        router.push(`/favorites?targetDay=${currentDayKey}&targetMeal=${mealType}`);
+    };
 
-            {/* Meal Slots */}
-            <div className="space-y-4">
-              {MEAL_TIMES.map((mealTime, mealIndex) => {
-                const meal = currentDayMeals[mealIndex];
+     const handleNavigateToSearch = () => {
+        router.push('/search');
+     };
 
-                return (
-                  <Card key={mealTime}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{mealTime}</CardTitle>
-                        {meal && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() =>
-                              handleRemoveMeal(selectedDay, mealIndex)
+    const handleGenerateShoppingList = () => {
+        // ... (Keep the existing aggregation logic) ...
+         if (!mealPlan) {
+             alert("Meal plan is not loaded yet.");
+             logger.warn('PlannerPage:GenerateList', 'Attempted generate list: Meal plan not loaded');
+             return;
+        }
+        if (isLoadingRecipes) {
+             alert("Recipe data is still loading.");
+             logger.warn('PlannerPage:GenerateList', 'Attempted generate list: Recipes not loaded');
+             return;
+        }
+         if (allRecipes.length === 0 && !isLoadingRecipes) {
+             alert("Failed to load recipe data. Cannot generate shopping list.");
+             logger.error('PlannerPage:GenerateList', 'Attempted generate list: All recipes array is empty');
+             return;
+         }
+
+        logger.info('PlannerPage:GenerateList', 'Generating shopping list from meal plan');
+        clearShoppingList();
+
+        const aggregatedIngredients: {
+            [key: string]: {
+                name: string; quantity: number; unit: string; category: IngredientCategory; recipeIds: string[];
+             }
+        } = {};
+
+        Object.values(mealPlan.meals).forEach(dayMeals => {
+            if (!dayMeals) return;
+            Object.values(dayMeals).forEach(slot => {
+                if (slot?.recipeId) {
+                    const recipe = allRecipes.find(r => r.id === slot.recipeId);
+                    if (recipe?.ingredients && Array.isArray(recipe.ingredients)) {
+                        recipe.ingredients.forEach(ing => {
+                            if (typeof ing?.name !== 'string' || typeof ing?.unit !== 'string' || typeof ing?.quantity !== 'number' || isNaN(ing.quantity)) {
+                                logger.warn('PlannerPage:GenerateList', `Skipping invalid ingredient format in recipe ${recipe.id}`, { ingredient: ing });
+                                return;
                             }
-                          >
-                            × Remove
-                          </Button>
-                        )}
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      {meal ? (
-                        <div className="flex gap-4">
-                          <div className="w-24 h-24 bg-gray-100 rounded-lg flex-shrink-0">
-                            {meal.recipeImage && (
-                              <img
-                                src={meal.recipeImage}
-                                alt={meal.recipeName || ""}
-                                className="w-full h-full object-cover rounded-lg"
-                              />
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-semibold mb-1">
-                              {meal.recipeName}
-                            </h3>
-                            <div className="flex gap-4 text-sm text-muted-foreground mb-2">
-                              <span>🍽 servings</span>
-                              <span>⏱ min</span>
-                            </div>
-                            <div className="flex gap-2">
-                              <Badge variant="neutral">
-                                {meal.calories} cal
-                              </Badge>
-                              {meal.macros && (
-                                <>
-                                  <Badge variant="neutral">
-                                    P: {meal.macros.protein}g
-                                  </Badge>
-                                  <Badge variant="neutral">
-                                    C: {meal.macros.carbs}g
-                                  </Badge>
-                                  <Badge variant="neutral">
-                                    F: {meal.macros.fats}g
-                                  </Badge>
-                                </>
-                              )}
-                            </div>
-                          </div>
+                            const nameLower = ing.name.toLowerCase().trim();
+                            const unitLower = ing.unit.toLowerCase().trim();
+                            const key = `${nameLower}||${unitLower}`;
+                            if (!aggregatedIngredients[key]) {
+                                aggregatedIngredients[key] = {
+                                    name: ing.name, quantity: 0, unit: ing.unit, category: categorizeIngredient(ing.name), recipeIds: []
+                                };
+                            }
+                            aggregatedIngredients[key].quantity += ing.quantity;
+                            if (!aggregatedIngredients[key].recipeIds.includes(recipe.id)) {
+                                aggregatedIngredients[key].recipeIds.push(recipe.id);
+                            }
+                        });
+                    } else if (recipe) {
+                         logger.warn('PlannerPage:GenerateList', `Recipe ${recipe.id} has missing or invalid ingredients array.`);
+                    }
+                }
+            });
+        });
+
+        let itemsAddedCount = 0;
+        Object.values(aggregatedIngredients).forEach(data => {
+            if(data.quantity > 0) {
+                addShoppingItem(data.name, data.quantity, data.unit);
+                itemsAddedCount++;
+            }
+        });
+
+        logger.info('PlannerPage:GenerateList', `Generated ${itemsAddedCount} items for shopping list`);
+        if (itemsAddedCount > 0) {
+            alert(`Generated ${itemsAddedCount} items for your shopping list!`);
+            router.push('/shopping-list');
+        } else {
+             alert("No ingredients found in the current meal plan to add to the shopping list.");
+        }
+    };
+
+
+    const handleExportWeek = () => {
+        // ... (Keep existing export logic) ...
+        if (!mealPlan) {
+            alert("No meal plan loaded to export.");
+            return;
+        }
+        logger.info('PlannerPage:ExportWeek', 'Exporting current meal plan as JSON');
+        try {
+            const jsonContent = JSON.stringify(mealPlan, null, 2);
+            const blob = new Blob([jsonContent], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            const weekStartDate = mealPlan.weekStarting ? new Date(mealPlan.weekStarting).toISOString().split('T')[0] : 'current-week';
+            a.download = `smartmeal-plan-${weekStartDate}.json`;
+            document.body.appendChild(a); // Append link to body for Firefox compatibility
+            a.click();
+            document.body.removeChild(a); // Clean up link
+            URL.revokeObjectURL(url);
+            alert("Meal plan exported successfully!");
+        } catch (error) {
+            logger.error('PlannerPage:ExportWeek', 'Failed to export meal plan', {}, error instanceof Error ? error : new Error(String(error)));
+            alert("Failed to export meal plan.");
+        }
+    };
+
+    const handleCopyToNextWeek = () => {
+        // ... (Keep existing copy logic) ...
+        if (confirm("Copy this week's plan to the next week? This will overwrite next week's plan if it exists.")) {
+            copyToNextWeek();
+            logger.info('PlannerPage:CopyWeek', 'Copied meal plan to next week');
+            alert("Meal plan copied to next week!");
+        }
+    };
+
+    const handleClearDay = () => {
+        // ... (Keep existing clear day logic) ...
+         if (!currentDayKey) return;
+        if (confirm(`Are you sure you want to clear all meals for ${DAYS_OF_WEEK[selectedDayIndex].label}?`)) {
+            clearDay(currentDayKey);
+            logger.info('PlannerPage:ClearDay', `Cleared meals for ${currentDayKey}`);
+        }
+    };
+
+     const handleClearWeek = () => {
+        // ... (Keep existing clear week logic) ...
+         if (confirm("Are you sure you want to clear all meals for the entire week?")) {
+            clearWeek();
+            logger.info('PlannerPage:ClearWeek', 'Cleared entire meal plan');
+        }
+    };
+
+    // --- Render Logic ---
+    if (isLoadingRecipes || !mealPlan) {
+         return (
+             <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
+                <span className="ml-4 text-muted-foreground">
+                    {isLoadingRecipes ? "Loading recipes..." : "Loading meal plan..."}
+                </span>
+             </div>
+        );
+    }
+
+    if (!currentDayKey) {
+        return (
+             <div className="min-h-screen flex items-center justify-center text-red-600">
+                 Error: Invalid day selected. Please refresh.
+             </div>
+        );
+    }
+
+    // --- Return JSX ---
+    return (
+        <div className="min-h-screen bg-background">
+            {/* Header */}
+            <div className="bg-white border-b sticky top-0 z-10">
+                <div className="container mx-auto px-4 sm:px-6 py-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+                        <div><h1 className="text-2xl sm:text-3xl font-bold">Meal Planner</h1></div>
+                        <div className="flex gap-1 sm:gap-2">
+                            <Button variant="ghost" size="sm" disabled>← Prev</Button>
+                            <Button variant="ghost" size="sm">This Week</Button>
+                            <Button variant="ghost" size="sm" disabled>Next →</Button>
                         </div>
-                      ) : (
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                          <p className="text-muted-foreground mb-3">
-                            No meal planned
-                          </p>
-                          <Button variant="secondary" size="sm">
-                            + Add Recipe
-                          </Button>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                    </div>
+                    {/* Weekly Overview */}
+                    <div className="grid grid-cols-7 gap-1 sm:gap-2">
+                        {DAYS_OF_WEEK.map((dayInfo, index) => {
+                            const dayKey = dayInfo.value;
+                            const dayMeals = mealPlan?.meals?.[dayKey] ? Object.values(mealPlan.meals[dayKey]) : Array(3).fill(null);
+                            const dayCalories = aggregateNutrition(dayMeals).calories;
+                            const mealCount = dayMeals.filter((m) => m && m.recipeId).length;
+                            return (
+                                <button key={dayInfo.value} onClick={() => setSelectedDayIndex(index)}
+                                    className={`p-2 sm:p-3 rounded-lg border-2 transition-all text-left text-xs sm:text-sm ${selectedDayIndex === index ? "border-primary bg-primary/10 ring-1 sm:ring-2 ring-primary/50" : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"}`}
+                                    aria-current={selectedDayIndex === index ? "date" : undefined} aria-label={`Select ${dayInfo.label}, ${mealCount} meals, ${dayCalories} cal`}>
+                                    <div className="font-semibold mb-0.5">{dayInfo.label.slice(0, 3)}</div>
+                                    <div className="text-[10px] sm:text-xs text-muted-foreground">{mealCount}/3</div>
+                                    <div className="text-[10px] sm:text-xs font-medium text-primary mt-0.5">{dayCalories} cal</div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
 
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Button variant="secondary">
-                  📋 Generate Shopping List
-                </Button>
-                <Button variant="secondary">📤 Export Week</Button>
-                <Button variant="secondary">🔄 Copy to Next Week</Button>
-                <Button variant="ghost">🗑 Clear This Day</Button>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Right Column - Nutrition Summary */}
-          <div className="space-y-6">
-            {/* Daily Nutrition */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Daily Nutrition</CardTitle>
-                <p className="text-sm text-muted-foreground">
-                  {DAYS_OF_WEEK[selectedDay]}
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="border-b pb-3">
-                    <div className="text-4xl font-bold text-primary mb-1">
-                      {dailyNutrition.calories}
+            {/* Main Content */}
+            <div className="container mx-auto px-4 sm:px-6 py-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+                    {/* Left Column */}
+                    <div className="lg:col-span-2 space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-xl sm:text-2xl font-bold">{DAYS_OF_WEEK[selectedDayIndex]?.label ?? 'Selected Day'}</h2>
+                            <Button variant="primary" size="sm" onClick={handleNavigateToSearch}>+ Add from Search</Button>
+                        </div>
+                        {/* Meal Slots */}
+                        <div className="space-y-4">
+                            {MEAL_TIMES.map((mealTime, mealIndex) => {
+                                const meal: MealSlot | null = currentDayMealsData[mealTime as MealTimeKey] ?? null;
+                                return (
+                                    <Card key={mealTime}>
+                                        <CardHeader className="py-3 px-4 sm:p-6">
+                                            <div className="flex items-center justify-between">
+                                                <CardTitle className="text-base sm:text-lg capitalize">{mealTime}</CardTitle>
+                                                {meal && meal.recipeId && (
+                                                    <Button variant="ghost" size="sm" onClick={() => handleRemoveMeal(mealIndex)} aria-label={`Remove ${meal.recipeName} from ${mealTime}`} className="text-red-500 hover:text-red-700 px-2">× Remove</Button>
+                                                )}
+                                            </div>
+                                        </CardHeader>
+                                        <CardContent className="pt-0 pb-4 px-4 sm:p-6 sm:pt-0">
+                                            {meal && meal.recipeId ? (
+                                                <div className="flex gap-3 sm:gap-4 items-start">
+                                                    <div className="w-16 h-16 sm:w-24 sm:h-24 bg-gray-100 rounded-lg flex-shrink-0 relative overflow-hidden">
+                                                        {meal.recipeImage ? (
+                                                            <img src={meal.recipeImage} alt={meal.recipeName || "Recipe image"} className="w-full h-full object-cover rounded-lg" onError={(e) => { e.currentTarget.src = '/images/placeholder-recipe.png'; e.currentTarget.alt = 'Placeholder image'; }}/>
+                                                        ) : ( <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs p-1 text-center">No Image</div> )}
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <h3 className="font-semibold mb-1 hover:text-primary cursor-pointer truncate" onClick={() => router.push(`/recipes/${meal.recipeId}`)} title={meal.recipeName || "Recipe Name Missing"}>{meal.recipeName || "Recipe Name Missing"}</h3>
+                                                        <div className="flex flex-wrap gap-1 sm:gap-2 mt-1 sm:mt-2">
+                                                            {meal.calories !== null && <Badge variant="neutral" size="sm">{meal.calories} cal</Badge>}
+                                                            {meal.macros && ( <> <Badge variant="info" size="sm">P: {meal.macros.protein}g</Badge> <Badge variant="info" size="sm">C: {meal.macros.carbs}g</Badge> <Badge variant="info" size="sm">F: {meal.macros.fats}g</Badge> </> )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center">
+                                                    <p className="text-muted-foreground text-sm sm:text-base mb-3">No meal planned</p>
+                                                    {/* This button now navigates to favorites */}
+                                                    <Button variant="secondary" size="sm" onClick={() => handleAddRecipeClick(mealIndex)}>+ Add Recipe from Favorites</Button>
+                                                </div>
+                                            )}
+                                        </CardContent>
+                                    </Card>
+                                );
+                            })}
+                        </div>
+                        {/* Quick Actions */}
+                        <Card>
+                            <CardHeader className="p-4 sm:p-6"><CardTitle className="text-base sm:text-lg">Quick Actions</CardTitle></CardHeader>
+                            <CardContent className="p-4 sm:p-6 pt-0 flex flex-wrap gap-2">
+                                <Button size="sm" variant="secondary" onClick={handleGenerateShoppingList} disabled={isLoadingRecipes || totalMealsPlanned === 0}>📋 Generate Shopping List</Button>
+                                <Button size="sm" variant="secondary" onClick={handleExportWeek} disabled={totalMealsPlanned === 0}>📤 Export Week</Button>
+                                <Button size="sm" variant="secondary" onClick={handleCopyToNextWeek} disabled={totalMealsPlanned === 0}>🔄 Copy to Next Week</Button>
+                                <Button size="sm" variant="ghost" onClick={handleClearDay} disabled={dailyNutrition.calories === 0}>🗑 Clear This Day</Button>
+                                <Button size="sm" variant="ghost" className="text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleClearWeek} disabled={totalMealsPlanned === 0}>🗑 Clear Entire Week</Button>
+                            </CardContent>
+                        </Card>
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      Total Calories
+
+                    {/* Right Column */}
+                    <div className="space-y-6 lg:sticky lg:top-24 self-start">
+                        {/* Daily Nutrition */}
+                        <Card>
+                             <CardHeader className="p-4 sm:p-6">
+                                <CardTitle className="text-base sm:text-lg">Daily Nutrition</CardTitle>
+                                <p className="text-xs sm:text-sm text-muted-foreground">{DAYS_OF_WEEK[selectedDayIndex]?.label ?? 'Selected Day'}</p>
+                            </CardHeader>
+                            <CardContent className="p-4 sm:p-6 pt-0">
+                                <div className="space-y-3 sm:space-y-4">
+                                    <div className="border-b pb-2 sm:pb-3">
+                                        <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">{dailyNutrition.calories}</div>
+                                        <div className="text-xs sm:text-sm text-muted-foreground">Total Calories</div>
+                                    </div>
+                                    <NutritionStat label="Protein" value={dailyNutrition.protein} goal={150} unit="g" color="bg-blue-500" />
+                                    <NutritionStat label="Carbs" value={dailyNutrition.carbs} goal={200} unit="g" color="bg-yellow-500" />
+                                    <NutritionStat label="Fats" value={dailyNutrition.fats} goal={65} unit="g" color="bg-orange-500" />
+                                    <NutritionStat label="Fiber" value={dailyNutrition.fiber} goal={30} unit="g" color="bg-green-500" />
+                                </div>
+                            </CardContent>
+                        </Card>
+                        {/* Weekly Stats */}
+                        <Card>
+                             <CardHeader className="p-4 sm:p-6"><CardTitle className="text-base sm:text-lg">Weekly Overview</CardTitle></CardHeader>
+                            <CardContent className="p-4 sm:p-6 pt-0">
+                                <div className="space-y-2 sm:space-y-3">
+                                    <div className="flex justify-between text-xs sm:text-sm"><span className="text-muted-foreground">Total Meals</span><span className="font-semibold">{totalMealsPlanned}/21</span></div>
+                                    <div className="flex justify-between text-xs sm:text-sm"><span className="text-muted-foreground">Weekly Calories</span><span className="font-semibold">{totalWeeklyCalories.toLocaleString()}</span></div>
+                                    <div className="flex justify-between text-xs sm:text-sm"><span className="text-muted-foreground">Avg Daily Calories</span><span className="font-semibold">{totalMealsPlanned > 0 ? Math.round(totalWeeklyCalories / 7) : 0}</span></div>
+                                    <div className="flex justify-between text-xs sm:text-sm"><span className="text-muted-foreground">Completion</span><span className="font-semibold">{Math.round((totalMealsPlanned / 21) * 100)}%</span></div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                        {/* Tips */}
+                        <Card>
+                             <CardHeader className="p-4 sm:p-6"><CardTitle className="text-base sm:text-lg">💡 Planning Tips</CardTitle></CardHeader>
+                            <CardContent className="p-4 sm:p-6 pt-0">
+                                <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground">
+                                    <li>• Add meals from Favorites or Search.</li>
+                                    <li>• Click a meal's title to view details.</li>
+                                    <li>• Use Quick Actions to manage your week.</li>
+                                    <li>• Generate shopping lists from your plan.</li>
+                                </ul>
+                            </CardContent>
+                        </Card>
                     </div>
-                  </div>
-
-                  <NutritionStat
-                    label="Protein"
-                    value={dailyNutrition.protein}
-                    goal={150}
-                    unit="g"
-                    color="bg-blue-500"
-                  />
-                  <NutritionStat
-                    label="Carbs"
-                    value={dailyNutrition.carbs}
-                    goal={200}
-                    unit="g"
-                    color="bg-yellow-500"
-                  />
-                  <NutritionStat
-                    label="Fats"
-                    value={dailyNutrition.fats}
-                    goal={65}
-                    unit="g"
-                    color="bg-orange-500"
-                  />
-                  <NutritionStat
-                    label="Fiber"
-                    value={dailyNutrition.fiber}
-                    goal={30}
-                    unit="g"
-                    color="bg-green-500"
-                  />
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Weekly Stats */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Weekly Overview</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      Total Meals
-                    </span>
-                    <span className="font-semibold">
-                      {Object.values(weekPlan).reduce(
-                        (count, day) =>
-                          count + day.filter((m) => m !== null).length,
-                        0
-                      )}
-                      /21
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      Weekly Calories
-                    </span>
-                    <span className="font-semibold">
-                      {totalWeeklyCalories.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      Avg Daily Calories
-                    </span>
-                    <span className="font-semibold">
-                      {Math.round(totalWeeklyCalories / 7)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      Completion
-                    </span>
-                    <span className="font-semibold">
-                      {Math.round(
-                        (Object.values(weekPlan).reduce(
-                          (count, day) =>
-                            count + day.filter((m) => m !== null).length,
-                          0
-                        ) /
-                          21) *
-                          100
-                      )}
-                      %
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Tips */}
-            <Card>
-              <CardHeader>
-                <CardTitle>💡 Planning Tips</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Drag recipes from search to meal slots</li>
-                  <li>• Click a meal to view details</li>
-                  <li>• Copy successful weeks for consistency</li>
-                  <li>• Generate shopping lists from your plan</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
-function NutritionStat({
-  label,
-  value,
-  goal,
-  unit,
-  color,
-}: {
-  label: string;
-  value: number;
-  goal: number;
-  unit: string;
-  color: string;
-}) {
-  const percentage = Math.min(Math.round((value / goal) * 100), 100);
-
-  return (
-    <div>
-      <div className="flex justify-between text-sm mb-1">
-        <span className="font-medium">{label}</span>
-        <span className="text-muted-foreground">
-          {value}/{goal}
-          {unit} ({percentage}%)
-        </span>
-      </div>
-      <div className="w-full bg-gray-200 rounded-full h-2">
-        <div
-          className={`${color} h-2 rounded-full transition-all`}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
-    </div>
-  );
+// NutritionStat Component
+function NutritionStat({ label, value, goal, unit, color }: { label: string; value: number; goal: number; unit: string; color: string; }) {
+    const percentage = goal > 0 ? Math.min(Math.round((value / goal) * 100), 100) : 0;
+    return (
+        <div>
+            <div className="flex justify-between text-xs sm:text-sm mb-1">
+                <span className="font-medium">{label}</span>
+                <span className="text-muted-foreground">{value}/{goal}{unit} ({percentage}%)</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-1.5 sm:h-2">
+                <div className={`${color} h-full rounded-full transition-all`} style={{ width: `${percentage}%` }} aria-hidden="true"/>
+            </div>
+        </div>
+    );
 }
