@@ -2,21 +2,64 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import type { MealPlan, MealSlot, DayOfWeek, MealType } from "@/types/mealPlan";
+import logger from "@/lib/debug"; // Import the logger
+
+// --- NEW HELPER FUNCTIONS ---
+
+/**
+ * Gets the date for the Monday of a given week.
+ * @param date The date to find the week for.
+ * @returns A string in YYYY-MM-DD format.
+ */
+const getStartOfWeek = (date: Date): string => {
+    const d = new Date(date);
+    const day = d.getDay(); // Sunday - 0, Monday - 1, ...
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
+    d.setDate(diff);
+    d.setHours(0, 0, 0, 0); // Set to midnight
+    return d.toISOString().split('T')[0]; // Return YYYY-MM-DD
+};
+
+/**
+ * Gets the start date of the week, 7 days in the future.
+ * @param weekKey The current week start date (YYYY-MM-DD)
+ */
+const getNextWeekKey = (weekKey: string): string => {
+    const d = new Date(weekKey);
+    d.setDate(d.getDate() + 7);
+    return d.toISOString().split('T')[0];
+};
+
+/**
+ * Gets the start date of the week, 7 days in the past.
+ * @param weekKey The current week start date (YYYY-MM-DD)
+ */
+const getPrevWeekKey = (weekKey: string): string => {
+    const d = new Date(weekKey);
+    d.setDate(d.getDate() - 7);
+    return d.toISOString().split('T')[0];
+};
+
+// --- END NEW HELPER FUNCTIONS ---
+
 
 interface MealPlanContextType {
-  mealPlan: MealPlan | null;
+  currentMealPlan: MealPlan | null; // The plan for the selected week
+  currentWeekStart: string; // The YYYY-MM-DD key for the current week
+  isPastWeek: boolean; // Flag for read-only state
+  navigateToNextWeek: () => void;
+  navigateToPrevWeek: () => void;
+  navigateToThisWeek: () => void;
   updateMealSlot: (day: DayOfWeek, mealType: MealType, meal: MealSlot) => void;
   removeMealSlot: (day: DayOfWeek, mealType: MealType) => void;
   clearDay: (day: DayOfWeek) => void;
   clearWeek: () => void;
-  copyToNextWeek: () => void;
-  loadMealPlan: () => void;
-  saveMealPlan: () => void;
 }
 
 const MealPlanContext = createContext<MealPlanContextType | undefined>(undefined);
 
-const STORAGE_KEY = "smartmeal_mealplan";
+// --- MODIFIED --- Storage key now holds ALL plans
+const STORAGE_KEY = "smartmeal_all_mealplans";
 
 const createEmptyMealSlot = (): MealSlot => ({
   recipeId: null,
@@ -26,7 +69,8 @@ const createEmptyMealSlot = (): MealSlot => ({
   macros: null,
 });
 
-const createEmptyWeek = (): MealPlan => {
+// --- MODIFIED --- Now takes a date to create a plan for that specific week
+const createEmptyWeek = (weekStartDate: string): MealPlan => {
   const days: DayOfWeek[] = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
   const meals: any = {};
   
@@ -39,89 +83,94 @@ const createEmptyWeek = (): MealPlan => {
   });
 
   return {
-    weekStarting: new Date().toISOString(),
+    weekStarting: weekStartDate,
     meals,
     lastUpdated: new Date().toISOString(),
   };
 };
 
 export function MealPlanProvider({ children }: { children: React.ReactNode }) {
-  const [mealPlan, setMealPlan] = useState<MealPlan | null>(null);
+  // --- MODIFIED --- State now holds all plans and the current week's key
+  const [allMealPlans, setAllMealPlans] = useState<{ [weekKey: string]: MealPlan }>({});
+  const [currentWeekStart, setCurrentWeekStart] = useState<string>(() => getStartOfWeek(new Date()));
 
   useEffect(() => {
-    loadMealPlan();
+    loadAllMealPlans();
   }, []);
 
-  const loadMealPlan = () => {
+  const loadAllMealPlans = () => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
+      let plans = {};
       if (stored) {
-        const parsed = JSON.parse(stored);
-        setMealPlan(parsed);
-      } else {
-        setMealPlan(createEmptyWeek());
+        plans = JSON.parse(stored);
       }
+      setAllMealPlans(plans);
+      logger.info('MealPlanContext:Load', `Loaded ${Object.keys(plans).length} meal plans from storage.`);
     } catch (error) {
-      console.error("Failed to load meal plan:", error);
-      setMealPlan(createEmptyWeek());
+      logger.error("MealPlanContext:Load", "Failed to load meal plans, setting empty state.", {}, error instanceof Error ? error : undefined);
+      setAllMealPlans({});
     }
   };
 
-  const saveMealPlan = () => {
-    if (mealPlan) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(mealPlan));
+  const saveAllMealPlans = (updatedPlans: { [weekKey: string]: MealPlan }) => {
+     try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedPlans));
+        logger.debug('MealPlanContext:Save', `Saved ${Object.keys(updatedPlans).length} total plans.`);
       } catch (error) {
-        console.error("Failed to save meal plan:", error);
+        logger.error("MealPlanContext:Save", "Failed to save meal plans.", {}, error instanceof Error ? error : undefined);
       }
-    }
   };
 
-  const updateMealSlot = (day: DayOfWeek, mealType: MealType, meal: MealSlot) => {
-    if (!mealPlan) return;
+  // --- NEW --- Navigation Functions
+  const navigateToNextWeek = () => {
+    setCurrentWeekStart(prevKey => getNextWeekKey(prevKey));
+    logger.info('MealPlanContext:Navigate', 'Navigated to next week');
+  };
 
-    const updated = {
-      ...mealPlan,
+  const navigateToPrevWeek = () => {
+    setCurrentWeekStart(prevKey => getPrevWeekKey(prevKey));
+     logger.info('MealPlanContext:Navigate', 'Navigated to previous week');
+  };
+  
+  const navigateToThisWeek = () => {
+    setCurrentWeekStart(getStartOfWeek(new Date()));
+    logger.info('MealPlanContext:Navigate', 'Navigated to current week');
+  };
+  
+  // --- MODIFIED --- All functions now operate on the `currentWeekStart`
+  const updateMealSlot = (day: DayOfWeek, mealType: MealType, meal: MealSlot) => {
+    const planToUpdate = allMealPlans[currentWeekStart] || createEmptyWeek(currentWeekStart);
+
+    const updatedPlan = {
+      ...planToUpdate,
       meals: {
-        ...mealPlan.meals,
+        ...planToUpdate.meals,
         [day]: {
-          ...mealPlan.meals[day],
+          ...planToUpdate.meals[day],
           [mealType]: meal,
         },
       },
       lastUpdated: new Date().toISOString(),
     };
 
-    setMealPlan(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    const updatedPlans = { ...allMealPlans, [currentWeekStart]: updatedPlan };
+    setAllMealPlans(updatedPlans);
+    saveAllMealPlans(updatedPlans);
+    logger.debug('MealPlanContext:Update', `Updated slot ${day} ${mealType} for week ${currentWeekStart}`);
   };
 
   const removeMealSlot = (day: DayOfWeek, mealType: MealType) => {
-    if (!mealPlan) return;
-
-    const updated = {
-      ...mealPlan,
-      meals: {
-        ...mealPlan.meals,
-        [day]: {
-          ...mealPlan.meals[day],
-          [mealType]: createEmptyMealSlot(),
-        },
-      },
-      lastUpdated: new Date().toISOString(),
-    };
-
-    setMealPlan(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    updateMealSlot(day, mealType, createEmptyMealSlot());
   };
 
   const clearDay = (day: DayOfWeek) => {
-    if (!mealPlan) return;
+    const planToUpdate = allMealPlans[currentWeekStart] || createEmptyWeek(currentWeekStart);
 
-    const updated = {
-      ...mealPlan,
+    const updatedPlan = {
+      ...planToUpdate,
       meals: {
-        ...mealPlan.meals,
+        ...planToUpdate.meals,
         [day]: {
           breakfast: createEmptyMealSlot(),
           lunch: createEmptyMealSlot(),
@@ -130,43 +179,43 @@ export function MealPlanProvider({ children }: { children: React.ReactNode }) {
       },
       lastUpdated: new Date().toISOString(),
     };
-
-    setMealPlan(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    
+    const updatedPlans = { ...allMealPlans, [currentWeekStart]: updatedPlan };
+    setAllMealPlans(updatedPlans);
+    saveAllMealPlans(updatedPlans);
+     logger.info('MealPlanContext:ClearDay', `Cleared day ${day} for week ${currentWeekStart}`);
   };
 
   const clearWeek = () => {
-    const empty = createEmptyWeek();
-    setMealPlan(empty);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(empty));
+    const updatedPlan = createEmptyWeek(currentWeekStart);
+    const updatedPlans = { ...allMealPlans, [currentWeekStart]: updatedPlan };
+    
+    setAllMealPlans(updatedPlans);
+    saveAllMealPlans(updatedPlans);
+    logger.info('MealPlanContext:ClearWeek', `Cleared all meals for week ${currentWeekStart}`);
   };
 
-  const copyToNextWeek = () => {
-    if (!mealPlan) return;
+  // --- DERIVED STATE ---
+  // Find the current plan, or create an empty one if it doesn't exist (e.g., for a new week)
+  const currentMealPlan = allMealPlans[currentWeekStart] || createEmptyWeek(currentWeekStart);
+  
+  // Check if the currently viewed week is in the past
+  const isPastWeek = currentWeekStart < getStartOfWeek(new Date());
 
-    const nextWeek: MealPlan = {
-      ...mealPlan,
-      weekStarting: new Date(
-        new Date(mealPlan.weekStarting).getTime() + 7 * 24 * 60 * 60 * 1000
-      ).toISOString(),
-      lastUpdated: new Date().toISOString(),
-    };
-
-    setMealPlan(nextWeek);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextWeek));
-  };
 
   return (
     <MealPlanContext.Provider
       value={{
-        mealPlan,
+        currentMealPlan,
+        currentWeekStart,
+        isPastWeek,
+        navigateToNextWeek,
+        navigateToPrevWeek,
+        navigateToThisWeek,
         updateMealSlot,
         removeMealSlot,
         clearDay,
         clearWeek,
-        copyToNextWeek,
-        loadMealPlan,
-        saveMealPlan,
       }}
     >
       {children}

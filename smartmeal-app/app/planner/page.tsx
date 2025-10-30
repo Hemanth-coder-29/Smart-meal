@@ -15,7 +15,7 @@ import { useMealPlan } from "@/contexts/MealPlanContext";
 import { useShoppingList } from "@/contexts/ShoppingListContext";
 import { categorizeIngredient } from "@/lib/categoryClassifier";
 import logger from "@/lib/debug"; // Assuming you have this configured
-// --- PDF IMPORTS ADDED ---
+// --- Import jsPDF and autoTable ---
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
 
@@ -40,12 +40,24 @@ export default function PlannerPage() {
     const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
 
     // --- Hooks ---
-    // **** Initialize useRouter and useSearchParams HERE ****
     const router = useRouter();
     const searchParams = useSearchParams();
-    // ******************************************************
+    
+    // --- MODIFIED --- Get new values from the updated context
+    const { 
+        currentMealPlan, // Renamed from mealPlan
+        isPastWeek,      // New state to disable actions
+        navigateToNextWeek, 
+        navigateToPrevWeek,
+        navigateToThisWeek,
+        updateMealSlot, 
+        removeMealSlot, 
+        // copyToNextWeek was removed from context, handleCopyToNextWeek function below shows an alert
+        clearDay, 
+        clearWeek 
+    } = useMealPlan();
+    // --- END MODIFIED ---
 
-    const { mealPlan, updateMealSlot, removeMealSlot, copyToNextWeek, clearDay, clearWeek } = useMealPlan();
     const { addItem: addShoppingItem, clearAll: clearShoppingList } = useShoppingList();
 
     // --- Effects ---
@@ -83,25 +95,25 @@ export default function PlannerPage() {
          if (dayIndex !== -1 && dayIndex !== selectedDayIndex) {
            setSelectedDayIndex(dayIndex);
            logger.debug('PlannerPage:ReturnNav', `Returned from favorites, focusing on ${returnDay}`);
-           // Optional: Clean URL
-           // router.replace('/planner', { scroll: false });
          }
        }
-     }, [searchParams, selectedDayIndex, router]); // Add router here if using replace
+     }, [searchParams, selectedDayIndex]);
 
     // --- Derived State ---
     const currentDayKey = DAYS_OF_WEEK[selectedDayIndex]?.value;
-    const currentDayMealsData = mealPlan?.meals[currentDayKey] ?? { breakfast: null, lunch: null, dinner: null };
+    const currentDayMealsData = currentMealPlan?.meals[currentDayKey] ?? { breakfast: null, lunch: null, dinner: null };
     const dailyNutrition = aggregateNutrition(Object.values(currentDayMealsData));
-    const totalWeeklyCalories = mealPlan ? Object.values(mealPlan.meals).reduce((total, dayMeals) => {
+    
+    const totalWeeklyCalories = currentMealPlan ? Object.values(currentMealPlan.meals).reduce((total, dayMeals) => {
         const mealsForDay = dayMeals ? Object.values(dayMeals) : [];
         const dayNutrition = aggregateNutrition(mealsForDay);
         return total + (dayNutrition?.calories ?? 0);
     }, 0) : 0;
-    const totalMealsPlanned = mealPlan ? Object.values(mealPlan.meals).reduce((count, dayMeals) => {
+    const totalMealsPlanned = currentMealPlan ? Object.values(currentMealPlan.meals).reduce((count, dayMeals) => {
        const validSlots = dayMeals ? Object.values(dayMeals).filter(slot => slot && slot.recipeId) : [];
        return count + validSlots.length;
     }, 0) : 0;
+
 
     // --- Event Handlers ---
     const handleRemoveMeal = (mealIndex: number) => {
@@ -111,9 +123,7 @@ export default function PlannerPage() {
         logger.info('PlannerPage:RemoveMeal', `Removed meal from ${currentDayKey} ${mealType}`);
     };
 
-    // This function should now have access to 'router'
     const handleAddRecipeClick = (mealIndex: number) => {
-        console.log('--- ADD RECIPE CLICKED ---', { mealIndex }); // Keep for testing
         if (!currentDayKey) {
              console.error("handleAddRecipeClick: currentDayKey is not set!");
              return;
@@ -128,8 +138,7 @@ export default function PlannerPage() {
      };
 
     const handleGenerateShoppingList = () => {
-        // ... (Keep the existing aggregation logic) ...
-         if (!mealPlan) {
+         if (!currentMealPlan) { 
              alert("Meal plan is not loaded yet.");
              logger.warn('PlannerPage:GenerateList', 'Attempted generate list: Meal plan not loaded');
              return;
@@ -154,7 +163,7 @@ export default function PlannerPage() {
              }
         } = {};
 
-        Object.values(mealPlan.meals).forEach(dayMeals => {
+        Object.values(currentMealPlan.meals).forEach(dayMeals => {
             if (!dayMeals) return;
             Object.values(dayMeals).forEach(slot => {
                 if (slot?.recipeId) {
@@ -203,9 +212,8 @@ export default function PlannerPage() {
     };
 
 
-    // --- THIS IS THE MODIFIED FUNCTION ---
     const handleExportWeek = () => {
-        if (!mealPlan) {
+        if (!currentMealPlan) {
              alert("No meal plan loaded to export.");
              logger.warn('PlannerPage:ExportWeek', 'Attempted export: Meal plan not loaded');
              return;
@@ -218,14 +226,12 @@ export default function PlannerPage() {
             const margin = 15;
             let yPosition = margin;
 
-            // --- Set Document Title ---
             doc.setFontSize(18);
             doc.text("Smart Meal - Meal Plan", margin, yPosition);
             yPosition += 10;
 
-            // --- Add Week Starting Date ---
-            const weekStartDate = mealPlan.weekStarting 
-                ? new Date(mealPlan.weekStarting).toLocaleDateString('en-US', {
+            const weekStartDate = currentMealPlan.weekStarting 
+                ? new Date(currentMealPlan.weekStarting).toLocaleDateString('en-US', {
                     year: 'numeric', month: 'long', day: 'numeric'
                   }) 
                 : 'Current Week';
@@ -235,17 +241,14 @@ export default function PlannerPage() {
             doc.text(`Week Starting: ${weekStartDate}`, margin, yPosition);
             yPosition += 10;
 
-            // --- Prepare Table Data ---
             const tableHeaders = ["Day", "Breakfast", "Lunch", "Dinner"];
             const tableData: string[][] = [];
 
-            // Loop through days (using the constant you already have)
             DAYS_OF_WEEK.forEach(dayInfo => {
                 const dayKey = dayInfo.value;
                 const dayLabel = dayInfo.label;
                 
-                // Get meals for the day, providing a fallback
-                const meals = mealPlan.meals[dayKey] ?? { breakfast: null, lunch: null, dinner: null };
+                const meals = currentMealPlan.meals[dayKey] ?? { breakfast: null, lunch: null, dinner: null };
                 
                 const breakfast = meals.breakfast?.recipeName || " - ";
                 const lunch = meals.lunch?.recipeName || " - ";
@@ -254,7 +257,6 @@ export default function PlannerPage() {
                 tableData.push([dayLabel, breakfast, lunch, dinner]);
             });
 
-            // --- Generate Table ---
             autoTable(doc, {
                 head: [tableHeaders],
                 body: tableData,
@@ -264,14 +266,13 @@ export default function PlannerPage() {
                 styles: { 
                     fontSize: 9, 
                     cellPadding: 3,
-                    overflow: 'linebreak', // Handle long recipe names
+                    overflow: 'linebreak', 
                 },
                 headStyles: { 
-                    fillColor: [255, 107, 53], // Smart Meal primary orange
+                    fillColor: [255, 107, 53], 
                     textColor: [255, 255, 255],
                     fontSize: 10,
                 },
-                // Set column widths to allow wrapping
                 columnStyles: {
                     0: { cellWidth: 25 }, // Day
                     1: { cellWidth: 48 }, // Breakfast
@@ -280,8 +281,7 @@ export default function PlannerPage() {
                 }
             });
             
-            // --- Save the PDF ---
-            const weekStartDateISO = mealPlan.weekStarting ? new Date(mealPlan.weekStarting).toISOString().split('T')[0] : 'current-week';
+            const weekStartDateISO = currentMealPlan.weekStarting ? new Date(currentMealPlan.weekStarting).toISOString().split('T')[0] : 'current-week';
             const pdfFileName = `smartmeal-plan-${weekStartDateISO}.pdf`;
             doc.save(pdfFileName);
 
@@ -293,19 +293,15 @@ export default function PlannerPage() {
             alert("Failed to export meal plan as PDF.");
         }
     };
-    // --- END OF MODIFIED FUNCTION ---
 
     const handleCopyToNextWeek = () => {
-        // ... (Keep existing copy logic) ...
-        if (confirm("Copy this week's plan to the next week? This will overwrite next week's plan if it exists.")) {
-            copyToNextWeek();
-            logger.info('PlannerPage:CopyWeek', 'Copied meal plan to next week');
-            alert("Meal plan copied to next week!");
-        }
+        // This function would need to be re-implemented in the context
+        // to copy from `currentWeekStart` to `getNextWeekKey(currentWeekStart)`
+        alert("Copy to next week is not yet implemented in the new context.");
+        logger.warn('PlannerPage:CopyWeek', 'Copy to next week button clicked (not implemented)');
     };
 
     const handleClearDay = () => {
-        // ... (Keep existing clear day logic) ...
          if (!currentDayKey) return;
         if (confirm(`Are you sure you want to clear all meals for ${DAYS_OF_WEEK[selectedDayIndex].label}?`)) {
             clearDay(currentDayKey);
@@ -314,7 +310,6 @@ export default function PlannerPage() {
     };
 
      const handleClearWeek = () => {
-        // ... (Keep existing clear week logic) ...
          if (confirm("Are you sure you want to clear all meals for the entire week?")) {
             clearWeek();
             logger.info('PlannerPage:ClearWeek', 'Cleared entire meal plan');
@@ -322,7 +317,7 @@ export default function PlannerPage() {
     };
 
     // --- Render Logic ---
-    if (isLoadingRecipes || !mealPlan) {
+    if (isLoadingRecipes || !currentMealPlan) { 
          return (
              <div className="min-h-screen flex items-center justify-center">
                 <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
@@ -350,16 +345,16 @@ export default function PlannerPage() {
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
                         <div><h1 className="text-2xl sm:text-3xl font-bold">Meal Planner</h1></div>
                         <div className="flex gap-1 sm:gap-2">
-                            <Button variant="ghost" size="sm" disabled>← Prev</Button>
-                            <Button variant="ghost" size="sm">This Week</Button>
-                            <Button variant="ghost" size="sm" disabled>Next →</Button>
+                            <Button variant="ghost" size="sm" onClick={navigateToPrevWeek}>← Prev</Button>
+                            <Button variant="ghost" size="sm" onClick={navigateToThisWeek}>This Week</Button>
+                            <Button variant="ghost" size="sm" onClick={navigateToNextWeek}>Next →</Button>
                         </div>
                     </div>
                     {/* Weekly Overview */}
                     <div className="grid grid-cols-7 gap-1 sm:gap-2">
                         {DAYS_OF_WEEK.map((dayInfo, index) => {
                             const dayKey = dayInfo.value;
-                            const dayMeals = mealPlan?.meals?.[dayKey] ? Object.values(mealPlan.meals[dayKey]) : Array(3).fill(null);
+                            const dayMeals = currentMealPlan?.meals?.[dayKey] ? Object.values(currentMealPlan.meals[dayKey]) : Array(3).fill(null);
                             const dayCalories = aggregateNutrition(dayMeals).calories;
                             const mealCount = dayMeals.filter((m) => m && m.recipeId).length;
                             return (
@@ -383,7 +378,9 @@ export default function PlannerPage() {
                     <div className="lg:col-span-2 space-y-6">
                         <div className="flex items-center justify-between">
                             <h2 className="text-xl sm:text-2xl font-bold">{DAYS_OF_WEEK[selectedDayIndex]?.label ?? 'Selected Day'}</h2>
-                            <Button variant="primary" size="sm" onClick={handleNavigateToSearch}>+ Add from Search</Button>
+                            <Button variant="primary" size="sm" onClick={handleNavigateToSearch} disabled={isPastWeek}>
+                                {isPastWeek ? "Viewing Past Week" : "+ Add from Search"}
+                            </Button>
                         </div>
                         {/* Meal Slots */}
                         <div className="space-y-4">
@@ -395,7 +392,7 @@ export default function PlannerPage() {
                                             <div className="flex items-center justify-between">
                                                 <CardTitle className="text-base sm:text-lg capitalize">{mealTime}</CardTitle>
                                                 {meal && meal.recipeId && (
-                                                    <Button variant="ghost" size="sm" onClick={() => handleRemoveMeal(mealIndex)} aria-label={`Remove ${meal.recipeName} from ${mealTime}`} className="text-red-500 hover:text-red-700 px-2">× Remove</Button>
+                                                    <Button variant="ghost" size="sm" onClick={() => handleRemoveMeal(mealIndex)} aria-label={`Remove ${meal.recipeName} from ${mealTime}`} className="text-red-500 hover:text-red-700 px-2" disabled={isPastWeek}>× Remove</Button>
                                                 )}
                                             </div>
                                         </CardHeader>
@@ -418,8 +415,9 @@ export default function PlannerPage() {
                                             ) : (
                                                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center">
                                                     <p className="text-muted-foreground text-sm sm:text-base mb-3">No meal planned</p>
-                                                    {/* This button now navigates to favorites */}
-                                                    <Button variant="secondary" size="sm" onClick={() => handleAddRecipeClick(mealIndex)}>+ Add Recipe from Favorites</Button>
+                                                    <Button variant="secondary" size="sm" onClick={() => handleAddRecipeClick(mealIndex)} disabled={isPastWeek}>
+                                                        {isPastWeek ? "Past week (Read-only)" : "+ Add Recipe from Favorites"}
+                                                    </Button>
                                                 </div>
                                             )}
                                         </CardContent>
@@ -433,9 +431,9 @@ export default function PlannerPage() {
                             <CardContent className="p-4 sm:p-6 pt-0 flex flex-wrap gap-2">
                                 <Button size="sm" variant="secondary" onClick={handleGenerateShoppingList} disabled={isLoadingRecipes || totalMealsPlanned === 0}>📋 Generate Shopping List</Button>
                                 <Button size="sm" variant="secondary" onClick={handleExportWeek} disabled={totalMealsPlanned === 0}>📤 Export Week</Button>
-                                <Button size="sm" variant="secondary" onClick={handleCopyToNextWeek} disabled={totalMealsPlanned === 0}>🔄 Copy to Next Week</Button>
-                                <Button size="sm" variant="ghost" onClick={handleClearDay} disabled={dailyNutrition.calories === 0}>🗑 Clear This Day</Button>
-                                <Button size="sm" variant="ghost" className="text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleClearWeek} disabled={totalMealsPlanned === 0}>🗑 Clear Entire Week</Button>
+                                <Button size="sm" variant="secondary" onClick={handleCopyToNextWeek} disabled={true}>🔄 Copy to Next Week</Button>
+                                <Button size="sm" variant="ghost" onClick={handleClearDay} disabled={dailyNutrition.calories === 0 || isPastWeek}>🗑 Clear This Day</Button>
+                                <Button size="sm" variant="ghost" className="text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleClearWeek} disabled={totalMealsPlanned === 0 || isPastWeek}>🗑 Clear Entire Week</Button>
                             </CardContent>
                         </Card>
                     </div>
